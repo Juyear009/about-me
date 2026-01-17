@@ -1,0 +1,46 @@
+.container {
+  position: fixed;
+  width: 100%;
+  padding: 35px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.container p {
+  cursor: pointer;
+}
+
+.homeNav {
+  font-size: 20px;
+}
+
+.pageNav {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+}
+
+.pageNav p {
+  color: lightgray;
+  transition: color 0.4s ease;
+}
+
+.pageNav p:hover {
+  color: black;
+}
+
+.supportNav {
+  background-color: black;
+  border-radius: 8px;
+}
+
+.supportNav p {
+  color: white;
+  padding: 8px 12px;
+}
+
+.selectPage {
+  color: black !important;
+}
