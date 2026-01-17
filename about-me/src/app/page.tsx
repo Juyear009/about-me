@@ -2,6 +2,32 @@ import styles from "./page.module.css";
 import Image from "next/image";
 
 export default function Home() {
+  const codingWords = [
+    "개발자",
+    "프로그래머",
+    "React",
+    "Next",
+    "JS",
+    "TS",
+    "Nest",
+    "Python",
+    "네트워크",
+    "리눅스",
+    "MySQL",
+    "AI",
+  ];
+  const designWords = [
+    "UI/UX",
+    "디자인",
+    "블루",
+    "Afetr Effect",
+    "Illustrator",
+    "Youtube",
+    "블랙",
+    "초보에요...",
+  ];
+  const etcWords = ["창업", "INTJ", "백준 플레티넘", "남자", "20살", "KYTER"];
+
   return (
     <div className={styles.page}>
       <div className={styles.HeroSection}>
@@ -19,15 +45,22 @@ export default function Home() {
         />
       </div>
       <div className={styles.keywordSection}>
-        <p>코딩</p>
-        <p>UI/UX</p>
-        <p>디자인</p>
-        <p>창업</p>
-        <p>AI</p>
-        <p>INTJ</p>
-        <p>백준 플레티넘</p>
-        <p>남자</p>
-        <p>20살</p>
+        <div className={styles.trackLeft}>
+          {codingWords.map((w, i) => (
+            <span key={`a-${i}`}>{w}</span>
+          ))}
+          {codingWords.map((w, i) => (
+            <span key={`b-${i}`}>{w}</span>
+          ))}
+        </div>
+        <div className={styles.trackRight}>
+          {designWords.map((w, i) => (
+            <span key={`a-${i}`}>{w}</span>
+          ))}
+          {designWords.map((w, i) => (
+            <span key={`b-${i}`}>{w}</span>
+          ))}
+        </div>
       </div>
     </div>
   );

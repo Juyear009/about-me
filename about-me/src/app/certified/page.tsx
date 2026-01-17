@@ -1,3 +1,3 @@
 export default function Page() {
-  return <div>PAGE</div>;
+  return <div>CERTIFIED</div>;
 }
