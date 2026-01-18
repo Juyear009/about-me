@@ -22,20 +22,20 @@ export default function Home() {
     "블루",
     "Afetr Effect",
     "Illustrator",
-    "Youtube",
-    "블랙",
-    "초보에요...",
+    "INTJ",
+    "남자",
+    "20살",
+    "백준 플레티넘",
+    "창업",
   ];
-  const etcWords = ["창업", "INTJ", "백준 플레티넘", "남자", "20살", "KYTER"];
 
   return (
     <div className={styles.page}>
       <div className={styles.HeroSection}>
-        <div>
+        <div className={styles.titleSection}>
           <p className={styles.mainTitle1}>대학생 개발자</p>
           <p className={styles.mainTitle1}>JUYEAR</p>
         </div>
-
         <Image
           className={styles.profileImg}
           height={450}

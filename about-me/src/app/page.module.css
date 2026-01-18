@@ -9,6 +9,21 @@
   margin-bottom: 300px;
 }
 
+.titleSection {
+  animation: title 0.4s ease-out;
+}
+
+@keyframes title {
+  from {
+    transform: translateX(-10%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 100%;
+  }
+}
+
 .mainTitle1 {
   font-size: 150px;
   font-weight: bold;
@@ -16,6 +31,18 @@
 
 .profileImg {
   border-radius: 50%;
+  animation: img 0.4s ease-out;
+}
+
+@keyframes img {
+  from {
+    transform: translateX(10%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 100%;
+  }
 }
 
 .keywordSection {
@@ -28,6 +55,8 @@
   left: 50%;
   white-space: nowrap;
   width: 100vw;
+  padding: 10px 0 14px 0;
+  background-color: #161513;
 }
 
 .trackLeft {
@@ -43,20 +72,13 @@
   animation: moveright 25s linear infinite;
 }
 
-.trackLeft span {
-  margin-right: 40px;
-  font-size: 40px;
-  font-weight: bold;
-  border: 4px solid #8792ae;
-  border-radius: 100px;
-  padding: 4px 16px;
-}
-
+.trackLeft span,
 .trackRight span {
   margin-right: 40px;
+  color: #f2f1ef;
   font-size: 40px;
   font-weight: bold;
-  border: 4px solid #8792ae;
+  border: 4px solid #ec4931;
   border-radius: 100px;
   padding: 4px 16px;
 }

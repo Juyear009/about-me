@@ -7,6 +7,18 @@
   align-items: center;
   font-weight: bold;
   background-color: #f2f1ef;
+  animation: nav 0.4s ease-out;
+}
+
+@keyframes nav {
+  from {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 100%;
+  }
 }
 
 .container p {
