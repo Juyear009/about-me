@@ -25,14 +25,7 @@ export default function Page() {
           <p className={styles.certificateName}>COSPRO 1급</p>
           <p className={styles.certificateDes}>2024.01.01</p>
           <p className={styles.certificateDes}>YBM IT</p>
-          <div className={styles.medalWrapper}>
-            <Image
-              src={"/medal_2.svg"}
-              width={100}
-              height={100}
-              alt="로고 사진"
-            />
-          </div>
+          <div className={styles.medalWrapper}></div>
         </div>
         <div className={styles.certificate}>
           <div className={styles.certificateTop}>
@@ -50,14 +43,7 @@ export default function Page() {
           <p className={styles.certificateName}>COSICAL 5등</p>
           <p className={styles.certificateDes}>2024.01.01</p>
           <p className={styles.certificateDes}>YBM IT</p>
-          <div className={styles.medalWrapper}>
-            <Image
-              src={"/medal_2.svg"}
-              width={100}
-              height={100}
-              alt="로고 사진"
-            />
-          </div>
+          <div className={styles.medalWrapper}></div>
         </div>
         <div className={styles.certificate}>
           <div className={styles.certificateTop}>
@@ -75,14 +61,7 @@ export default function Page() {
           <p className={styles.certificateName}>COSPRO 2급</p>
           <p className={styles.certificateDes}>2024.01.01</p>
           <p className={styles.certificateDes}>YBM IT</p>
-          <div className={styles.medalWrapper}>
-            <Image
-              src={"/medal_2.svg"}
-              width={100}
-              height={100}
-              alt="로고 사진"
-            />
-          </div>
+          <div className={styles.medalWrapper}></div>
         </div>
       </div>
     </div>
