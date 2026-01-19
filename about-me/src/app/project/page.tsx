@@ -17,9 +17,9 @@ export default function Page() {
           </p>
           <div className={styles.projectMainImg}>
             <Image
-              src={"/sangmyung_ai_2.png"}
-              width={250}
-              height={500}
+              src={"/sangmyung_ai_4.png"}
+              width={800}
+              height={600}
               alt="상명 ai"
             />
           </div>
@@ -27,7 +27,30 @@ export default function Page() {
         <div className={styles.project}>
           <p className={styles.projectTitle}>DISMU</p>
           <p className={styles.projectDes}>
-            AI 전용 노래 플랫폼, 미래 노래 시장은 이럴 것입니다!
+            AI 전용 노래 플랫폼, 미래 노래 시장은 이렇게 될 것입니다!
+          </p>
+        </div>
+      </div>
+      <div className={styles.projects}>
+        <div className={styles.project}>
+          <p className={styles.projectTitle}>HARU AI</p>
+          <p className={styles.projectDes}>
+            뉴스 요약과 하루 TTS 브리핑까지, 이젠 쇼츠 말고 뉴스를 스크롤
+            하세요!
+          </p>
+          <div className={styles.projectMainImg}>
+            <Image
+              src={"/haru_ai_2.png"}
+              width={800}
+              height={600}
+              alt="상명 ai"
+            />
+          </div>
+        </div>
+        <div className={styles.project}>
+          <p className={styles.projectTitle}>TARIVEL</p>
+          <p className={styles.projectDes}>
+            AI 전용 노래 플랫폼, 미래 노래 시장은 이렇게 될 것입니다!
           </p>
         </div>
       </div>

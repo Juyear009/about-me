@@ -1,0 +1,29 @@
+.page {
+  padding: 160px 80px;
+}
+
+.titleSection {
+  animation: title 0.4s ease-out;
+}
+
+.title {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+@keyframes title {
+  from {
+    transform: translateX(-3%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 100%;
+  }
+}
+
+.des {
+  margin-top: 10px;
+  font-size: 25px;
+  color: rgb(184, 183, 183);
+}
