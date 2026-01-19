@@ -42,10 +42,10 @@ export default function NavBar() {
           CERTIFIED
         </p>
         <p
-          className={`${section === "instagram" ? styles.selectPage : ""}`}
-          onClick={() => routerPage("instagram")}
+          className={`${section === "github" ? styles.selectPage : ""}`}
+          onClick={() => router.push("https://github.com/Juyear009")}
         >
-          INSTAGRAM
+          GITHUB
         </p>
       </div>
       <div className={styles.supportNav}>

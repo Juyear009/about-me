@@ -27,3 +27,74 @@
   font-size: 25px;
   color: rgb(184, 183, 183);
 }
+
+.certifications {
+  margin-top: 30px;
+  display: flex;
+  gap: 35px;
+}
+
+.certificate {
+  position: relative;
+  flex: 1;
+  background-color: white;
+  border-radius: 16px;
+  padding: 30px 20px;
+  animation: certificate 0.8s ease-in;
+  transition: all 0.4s ease;
+}
+
+.certificate:hover {
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+  scale: 101.5%;
+}
+
+@keyframes certificate {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
+.certificateTitle {
+  font-size: 30px;
+  font-weight: bold;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+.certificateName {
+  font-weight: bold;
+  padding-top: 18px;
+  font-size: 25px;
+}
+
+.certificateTop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoWrapper {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: -10px;
+  padding: 5px;
+  border: 1px solid lightgray;
+  border-radius: 100%;
+}
+
+.certificateDes {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.medalWrapper {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+}

@@ -15,6 +15,15 @@ export default function Page() {
             공지사항 데이터를 RAG 기반으로 학습한 대학생 전용 AI 챗봇을
             만나보세요!
           </p>
+          <div className={styles.skillTag}>
+            <p>AI</p>
+            <p>JS/TS</p>
+            <p>PYTHON</p>
+            <p>NEXT</p>
+            <p>NEST</p>
+            <p>FAST API</p>
+            <p>SQL</p>
+          </div>
           <div className={styles.projectMainImg}>
             <Image
               src={"/sangmyung_ai_4.png"}
@@ -29,6 +38,24 @@ export default function Page() {
           <p className={styles.projectDes}>
             AI 전용 노래 플랫폼, 미래 노래 시장은 이렇게 될 것입니다!
           </p>
+          <div className={styles.skillTag}>
+            <p>AI</p>
+            <p>JS/TS</p>
+            <p>PYTHON</p>
+            <p>NEXT</p>
+            <p>NEST</p>
+            <p>FAST API</p>
+            <p>SQL</p>
+            <p>FIREBASE</p>
+          </div>
+          <div className={styles.projectMainImg}>
+            <Image
+              src={"/dismu_2.png"}
+              width={800}
+              height={550}
+              alt="상명 ai"
+            />
+          </div>
         </div>
       </div>
       <div className={styles.projects}>
@@ -38,6 +65,15 @@ export default function Page() {
             뉴스 요약과 하루 TTS 브리핑까지, 이젠 쇼츠 말고 뉴스를 스크롤
             하세요!
           </p>
+          <div className={styles.skillTag}>
+            <p>AI</p>
+            <p>JS/TS</p>
+            <p>PYTHON</p>
+            <p>REACT NATIVE</p>
+            <p>NEST</p>
+            <p>FAST API</p>
+            <p>SQL</p>
+          </div>
           <div className={styles.projectMainImg}>
             <Image
               src={"/haru_ai_2.png"}
@@ -52,6 +88,13 @@ export default function Page() {
           <p className={styles.projectDes}>
             이제 여행 일정을 AI로 한 번에 계획해보세요!
           </p>
+          <div className={styles.skillTag}>
+            <p>AI</p>
+            <p>JS/TS</p>
+            <p>NEXT</p>
+            <p>EXPRESS</p>
+            <p>SQL</p>
+          </div>
           <div className={styles.projectMainImg}>
             <Image
               src={"/traivel_1.png"}
