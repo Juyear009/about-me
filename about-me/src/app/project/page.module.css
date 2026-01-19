@@ -35,11 +35,16 @@
 }
 
 .project {
+  cursor: pointer;
   flex: 1;
   padding: 30px 20px;
   background-color: white;
   border-radius: 16px;
   animation: project 0.8s ease-in;
+}
+
+.project:hover {
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes project {

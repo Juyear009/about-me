@@ -50,8 +50,16 @@ export default function Page() {
         <div className={styles.project}>
           <p className={styles.projectTitle}>TARIVEL</p>
           <p className={styles.projectDes}>
-            AI 전용 노래 플랫폼, 미래 노래 시장은 이렇게 될 것입니다!
+            이제 여행 일정을 AI로 한 번에 계획해보세요!
           </p>
+          <div className={styles.projectMainImg}>
+            <Image
+              src={"/traivel_1.png"}
+              width={800}
+              height={500}
+              alt="상명 ai"
+            />
+          </div>
         </div>
       </div>
     </div>
