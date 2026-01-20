@@ -100,3 +100,81 @@
     transform: translateX(0%);
   }
 }
+
+.profileSummary {
+  top: 150px;
+  width: 1000px;
+  margin: 120px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+}
+
+.profileSummaryHeading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profileSummaryTitle {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.profileSummaryDes {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.profileSummaryBoxes {
+  display: flex;
+  justify-content: center;
+}
+
+.profileSummaryBox1 {
+  flex: 1;
+  border: 2px solid black;
+  padding: 20px;
+}
+
+.profileSummaryBox2 {
+  flex: 1;
+  background-color: black;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.profileSummaryBox2 p {
+  color: white;
+}
+
+.boxTitle {
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.boxDes {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.skillSectionHeading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.skillSectionTitle {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.skillSectionDes {
+  font-size: 18px;
+  color: gray;
+  font-weight: bold;
+}
