@@ -1,5 +1,9 @@
+"use client";
+
+import SkillIcon from "@/components/SkillIcon";
 import styles from "./page.module.css";
 import Image from "next/image";
+import FadeIn from "@/components/FadeIn";
 
 export default function Home() {
   const codingWords = [
@@ -27,6 +31,96 @@ export default function Home() {
     "20살",
     "백준 플레티넘",
     "창업",
+  ];
+  const backendSkills = [
+    {
+      name: "Python",
+      default: "/skill_icons/black_python.png",
+      hover: "/skill_icons/color_python.png",
+      size: 90,
+    },
+    {
+      name: "JavaScript",
+      default: "/skill_icons/black_js.png",
+      hover: "/skill_icons/color_js.png",
+      size: 90,
+    },
+    {
+      name: "TypeScript",
+      default: "/skill_icons/black_ts.png",
+      hover: "/skill_icons/color_ts.png",
+      size: 90,
+    },
+    {
+      name: "C",
+      default: "/skill_icons/black_c.png",
+      hover: "/skill_icons/color_c.png",
+      size: 90,
+    },
+    {
+      name: "Nest",
+      default: "/skill_icons/black_nest.png",
+      hover: "/skill_icons/color_nest.png",
+      size: 90,
+    },
+    {
+      name: "MySQL",
+      default: "/skill_icons/black_mysql.png",
+      hover: "/skill_icons/color_mysql.png",
+      size: 100,
+    },
+  ];
+  const frontendSkills = [
+    {
+      name: "Html",
+      default: "/skill_icons/black_html.png",
+      hover: "/skill_icons/color_html.png",
+      size: 90,
+    },
+    {
+      name: "Css",
+      default: "/skill_icons/black_css2.png",
+      hover: "/skill_icons/color_css.png",
+      size: 90,
+    },
+    {
+      name: "React",
+      default: "/skill_icons/black_react.png",
+      hover: "/skill_icons/color_react.png",
+      size: 85,
+    },
+    {
+      name: "Next",
+      default: "/skill_icons/black_next.png",
+      hover: "/skill_icons/color_next.png",
+      size: 90,
+    },
+  ];
+  const studySkills = [
+    {
+      name: "Java",
+      default: "/skill_icons/black_java.png",
+      hover: "/skill_icons/color_java.png",
+      size: 90,
+    },
+    {
+      name: "Git",
+      default: "/skill_icons/black_git.png",
+      hover: "/skill_icons/color_git.png",
+      size: 90,
+    },
+    {
+      name: "Linux",
+      default: "/skill_icons/black_linux.png",
+      hover: "/skill_icons/color_linux.png",
+      size: 90,
+    },
+    {
+      name: "AI",
+      default: "/skill_icons/black_ai.png",
+      hover: "/skill_icons/color_ai.png",
+      size: 80,
+    },
   ];
 
   return (
@@ -63,51 +157,102 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.profileSummary}>
-        <div className={styles.profileSummaryHeading}>
-          <p className={styles.profileSummaryTitle}>
-            FULLSTACK <br />
-            DEVELOPER
-            <br />
-            AI RESEARCHER
-          </p>
-          <p className={styles.profileSummaryDes}>
-            저는 다가오는 기술에 빠르게 적응하며,
-            <br />
-            단순히 기술을 활용하는 개발자가 아닌 <br />
-            문제를 해결하는 개발자로 성장하고자 합니다.
-          </p>
-        </div>
-        <div className={styles.profileSummaryBoxes}>
-          <div className={styles.profileSummaryBox1}>
-            <p className={styles.boxTitle}>DONGTAN</p>
-            <p className={styles.boxDes}>LOCATION</p>
+        <FadeIn>
+          <div className={styles.profileSummaryHeading}>
+            <p className={styles.profileSummaryTitle}>
+              FULLSTACK <br />
+              DEVELOPER
+              <br />
+              AI RESEARCHER
+            </p>
+            <p className={styles.profileSummaryDes}>
+              저는 다가오는 기술에 빠르게 적응하며,
+              <br />
+              단순히 기술을 활용하는 개발자가 아닌 <br />
+              문제를 해결하는 개발자로 성장하고자 합니다.
+            </p>
           </div>
-          <div className={styles.profileSummaryBox2}>
-            <p className={styles.boxTitle}>7+</p>
-            <p className={styles.boxDes}>YEARS OF EXPREIENCE</p>
+        </FadeIn>
+        <FadeIn>
+          <div className={styles.profileSummaryBoxes}>
+            <div className={styles.profileSummaryBox1}>
+              <p className={styles.boxTitle}>DONGTAN</p>
+              <p className={styles.boxDes}>LOCATION</p>
+            </div>
+            <div className={styles.profileSummaryBox2}>
+              <p className={styles.boxTitle}>7+</p>
+              <p className={styles.boxDes}>YEARS OF EXPERIENCE</p>
+            </div>
+            <div className={styles.profileSummaryBox1}>
+              <p className={styles.boxTitle}>2005.07.28</p>
+              <p className={styles.boxDes}>DATE OF BIRTH</p>
+            </div>
           </div>
-          <div className={styles.profileSummaryBox1}>
-            <p className={styles.boxTitle}>2005.07.28</p>
-            <p className={styles.boxDes}>DATE OF BIRTH</p>
-          </div>
-        </div>
+        </FadeIn>
       </div>
       <div className={styles.skillSection}>
-        <div className={styles.skillSectionHeading}>
-          <Image
-            src={"/red_button.svg"}
-            width={50}
-            height={50}
-            alt="빨간 아이콘"
-          />
-          <p className={styles.skillSectionTitle}>SKILLS</p>
-          <p className={styles.skillSectionDes}>
-            현재 기술 스택과 배우고 있는 기술을 정리해봤어요.
-          </p>
-        </div>
+        <FadeIn>
+          <div className={styles.skillSectionHeading}>
+            <Image
+              src={"/red_button.svg"}
+              width={50}
+              height={50}
+              alt="빨간 아이콘"
+            />
+            <p className={styles.skillSectionTitle}>SKILLS</p>
+            <p className={styles.skillSectionDes}>
+              현재 기술 스택과 배우고 있는 기술을 정리해봤어요.
+            </p>
+          </div>
+        </FadeIn>
         <div className={styles.skillBoxes}>
-          <div className={styles.skillBox}></div>
+          <FadeIn>
+            <div className={styles.skillBox}>
+              <span className={styles.label}>BACKEND</span>
+              {backendSkills.map((skill) => (
+                <SkillIcon key={skill.name} skill={skill} />
+              ))}
+            </div>
+          </FadeIn>
+          <FadeIn>
+            <div className={styles.skillBox}>
+              <span className={styles.label}>FRONTEND</span>
+              {frontendSkills.map((skill) => (
+                <SkillIcon key={skill.name} skill={skill} />
+              ))}
+            </div>
+          </FadeIn>
+          <FadeIn>
+            <div className={styles.skillBox}>
+              <span className={styles.label}>STUDY</span>
+              {studySkills.map((skill) => (
+                <SkillIcon key={skill.name} skill={skill} />
+              ))}
+            </div>
+          </FadeIn>
+          <FadeIn>
+            <div className={`${styles.skillBox} ${styles.textBox}`}>
+              <span className={styles.label}>RELATIVE</span>
+              <p>RAG · FAISS · FASTAPI · EXPRESS · ARCHITECTURE</p>
+              <p>VERCEL · SUPABASE · POSTMAN · SWAGGER · NETWORK</p>
+              <p>FFMPEG · NOTION · GITHUB · PRISMA · FIREBASE</p>
+            </div>
+          </FadeIn>
         </div>
+      </div>
+      <div className={styles.educationSection}>
+        <FadeIn>
+          <div className={styles.educationSectionHeading}>
+            <Image
+              src={"/red_button.svg"}
+              width={50}
+              height={50}
+              alt="빨간 아이콘"
+            />
+            <p className={styles.skillSectionTitle}>EDUCATION</p>
+            <p className={styles.skillSectionDes}>학력 정보를 정리해봤어요.</p>
+          </div>
+        </FadeIn>
       </div>
     </div>
   );

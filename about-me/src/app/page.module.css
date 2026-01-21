@@ -178,3 +178,51 @@
   color: gray;
   font-weight: bold;
 }
+
+.skillBoxes {
+  width: 1000px;
+  margin: 50px auto 120px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.skillBox {
+  position: relative;
+  border: 2px solid black;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.textBox {
+  flex-direction: column;
+  padding: 20px;
+}
+
+.skillBox:hover .label {
+  color: #ec4931 !important;
+}
+
+.label {
+  font-size: 20px;
+  font-weight: bold;
+  color: gray;
+  position: absolute;
+  top: 0;
+  transform: translateY(-50%);
+  padding: 0 12px;
+  background-color: #f2f1ef;
+  transition: all 0.2s ease-in;
+}
+
+.educationSectionHeading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
