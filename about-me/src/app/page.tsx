@@ -4,6 +4,7 @@ import SkillIcon from "@/components/SkillIcon";
 import styles from "./page.module.css";
 import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
+import { myfont } from "./fonts";
 
 export default function Home() {
   const codingWords = [
@@ -251,6 +252,25 @@ export default function Home() {
             />
             <p className={styles.skillSectionTitle}>EDUCATION</p>
             <p className={styles.skillSectionDes}>학력 정보를 정리해봤어요.</p>
+          </div>
+        </FadeIn>
+      </div>
+      <div className={styles.mottoSection}>
+        <FadeIn>
+          <div className={styles.mottoSectionHeading}>
+            <Image
+              src={"/red_button.svg"}
+              width={50}
+              height={50}
+              alt="빨간 아이콘"
+            />
+            <p className={styles.skillSectionTitle}>MOTTO</p>
+            <p className={styles.skillSectionDes}>제 인생 모토를 적어봤어요.</p>
+            <p className={`${styles.motto} ${myfont.className}`}>
+              <span className={styles.redQuot}>&quot;</span> 항상 위를 보는
+              사람은 절대 바닥에 있지 않는다.{" "}
+              <span className={styles.redQuot}>&quot;</span>
+            </p>
           </div>
         </FadeIn>
       </div>

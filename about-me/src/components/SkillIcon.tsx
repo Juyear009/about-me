@@ -3,7 +3,11 @@
 import Image from "next/image";
 import { useState } from "react";
 
-export default function SkillIcon({ skill }) {
+export default function SkillIcon({
+  skill,
+}: {
+  skill: { hover: string; default: string; size: number; name: string };
+}) {
   const [hover, setHover] = useState(false);
 
   return (
