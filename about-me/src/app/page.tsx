@@ -166,12 +166,28 @@ export default function Home() {
               <br />
               AI RESEARCHER
             </p>
-            <p className={styles.profileSummaryDes}>
-              저는 다가오는 기술에 빠르게 적응하며,
-              <br />
-              단순히 기술을 활용하는 개발자가 아닌 <br />
-              문제를 해결하는 개발자로 성장하고자 합니다.
-            </p>
+            <div>
+              <p className={styles.profileSummaryDes}>
+                저는 다가오는 기술에 빠르게 적응하며,
+                <br />
+                단순히 기술을 활용하는 개발자가 아닌 <br />
+                문제를 해결하는 개발자로 성장하고자 합니다.
+              </p>
+              <div className={styles.profileInfo}>
+                <div>
+                  <p className={styles.profileInfoTitle}>GENDER</p>
+                  <p className={styles.profileInfoDes}>남자</p>
+                </div>
+                <div>
+                  <p className={styles.profileInfoTitle}>EDUCATION</p>
+                  <p className={styles.profileInfoDes}>학력</p>
+                </div>
+                <div>
+                  <p className={styles.profileInfoTitle}>YEAR</p>
+                  <p className={styles.profileInfoDes}>20살</p>
+                </div>
+              </div>
+            </div>
           </div>
         </FadeIn>
         <FadeIn>
@@ -233,7 +249,7 @@ export default function Home() {
           </FadeIn>
           <FadeIn>
             <div className={`${styles.skillBox} ${styles.textBox}`}>
-              <span className={styles.label}>RELATIVE</span>
+              <span className={styles.label}>OTHERS</span>
               <p>RAG · FAISS · FASTAPI · EXPRESS · ARCHITECTURE</p>
               <p>VERCEL · SUPABASE · POSTMAN · SWAGGER · NETWORK</p>
               <p>FFMPEG · NOTION · GITHUB · PRISMA · FIREBASE</p>
@@ -241,19 +257,137 @@ export default function Home() {
           </FadeIn>
         </div>
       </div>
-      <div className={styles.educationSection}>
+      <div className={styles.timelineSection}>
         <FadeIn>
-          <div className={styles.educationSectionHeading}>
+          <div className={styles.timelineSectionHeading}>
             <Image
               src={"/red_button.svg"}
               width={50}
               height={50}
               alt="빨간 아이콘"
             />
-            <p className={styles.skillSectionTitle}>EDUCATION</p>
-            <p className={styles.skillSectionDes}>학력 정보를 정리해봤어요.</p>
+            <p className={styles.skillSectionTitle}>TIMELINE</p>
+            <p className={styles.skillSectionDes}>
+              주요 활동을 타임라인 형식으로 정리해봤어요.
+            </p>
           </div>
         </FadeIn>
+        <div className={styles.timelineBody}>
+          <FadeIn>
+            <div className={styles.timelineDivide}>
+              <div className={styles.timelineItems}>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2022-??-??</span> : 처음으로
+                    Python이라는 언어로 코딩을 시작했어요.
+                  </p>
+                </div>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2022-??-??</span> : 처음으로
+                    Python이라는 언어로 코딩을 시작했어요.
+                  </p>
+                </div>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2022-??-??</span> : 처음으로
+                    Python이라는 언어로 코딩을 시작했어요.
+                  </p>
+                </div>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2022-??-??</span> : 처음으로
+                    Python이라는 언어로 코딩을 시작했어요.
+                  </p>
+                </div>
+              </div>
+              <div className={styles.timelineImg}>
+                <Image
+                  height={250}
+                  width={400}
+                  src={"/timelineImg/timeline_img1.jpg"}
+                  alt="타임라인 이미지"
+                />
+              </div>
+            </div>
+          </FadeIn>
+          <FadeIn>
+            <div className={styles.timelineDivide}>
+              <div className={styles.timelineImg}>
+                <Image
+                  height={250}
+                  width={400}
+                  src={"/timelineImg/timeline_img2.avif"}
+                  alt="타임라인 이미지"
+                />
+              </div>
+              <div className={styles.timelineItems}>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2022-??-??</span> : 처음으로
+                    Python이라는 언어로 코딩을 시작했어요.
+                  </p>
+                </div>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2022-??-??</span> : 처음으로
+                    Python이라는 언어로 코딩을 시작했어요.
+                  </p>
+                </div>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2022-??-??</span> : 처음으로
+                    Python이라는 언어로 코딩을 시작했어요.
+                  </p>
+                </div>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2022-??-??</span> : 처음으로
+                    Python이라는 언어로 코딩을 시작했어요.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+          <FadeIn>
+            <div className={styles.timelineDivide}>
+              <div className={styles.timelineItems}>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2022-??-??</span> : 처음으로
+                    Python이라는 언어로 코딩을 시작했어요.
+                  </p>
+                </div>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2022-??-??</span> : 처음으로
+                    Python이라는 언어로 코딩을 시작했어요.
+                  </p>
+                </div>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2022-??-??</span> : 처음으로
+                    Python이라는 언어로 코딩을 시작했어요.
+                  </p>
+                </div>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2022-??-??</span> : 처음으로
+                    Python이라는 언어로 코딩을 시작했어요.
+                  </p>
+                </div>
+              </div>
+              <div className={styles.timelineImg}>
+                <Image
+                  height={250}
+                  width={400}
+                  src={"/timelineImg/timeline_img3.jpg"}
+                  alt="타임라인 이미지"
+                />
+              </div>
+            </div>
+          </FadeIn>
+        </div>
       </div>
       <div className={styles.mottoSection}>
         <FadeIn>
