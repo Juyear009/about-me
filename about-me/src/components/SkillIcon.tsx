@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SkillIcon({
   skill,
@@ -9,6 +9,11 @@ export default function SkillIcon({
   skill: { hover: string; default: string; size: number; name: string };
 }) {
   const [hover, setHover] = useState(false);
+
+  useEffect(() => {
+    const img = new window.Image();
+    img.src = skill.hover;
+  }, [skill.hover]);
 
   return (
     <Image
