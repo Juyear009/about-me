@@ -25,7 +25,7 @@ export default function Home() {
     "UI/UX",
     "디자인",
     "블루",
-    "Afetr Effect",
+    "After Effect",
     "Illustrator",
     "INTJ",
     "남자",
@@ -180,7 +180,7 @@ export default function Home() {
                 </div>
                 <div>
                   <p className={styles.profileInfoTitle}>EDUCATION</p>
-                  <p className={styles.profileInfoDes}>학력</p>
+                  <p className={styles.profileInfoDes}>대학교 재학</p>
                 </div>
                 <div>
                   <p className={styles.profileInfoTitle}>YEAR</p>

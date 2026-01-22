@@ -13,6 +13,10 @@ export default function NavBar() {
     setSection(page);
   };
 
+  const prefetchPage = (page: string) => {
+    router.prefetch(`/${page}`);
+  };
+
   useEffect(() => {
     console.log(section);
   }, [section]);
@@ -25,18 +29,21 @@ export default function NavBar() {
       <div className={styles.pageNav}>
         <p
           className={`${section === "project" ? styles.selectPage : ""}`}
+          onMouseEnter={() => prefetchPage("project")}
           onClick={() => routerPage("project")}
         >
           PROJECT
         </p>
         <p
           className={`${section === "blog" ? styles.selectPage : ""}`}
+          onMouseEnter={() => prefetchPage("blog")}
           onClick={() => routerPage("blog")}
         >
           BLOG
         </p>
         <p
           className={`${section === "certified" ? styles.selectPage : ""}`}
+          onMouseEnter={() => prefetchPage("certified")}
           onClick={() => routerPage("certified")}
         >
           CERTIFIED
