@@ -103,14 +103,35 @@ export default function ProjectCard({
               >
                 {projectDes}
               </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
+              <div className={styles.skillTag}>
+                {skillTag.map((s, i) => (
+                  <motion.p
+                    key={s}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.25 + i * 0.08 }}
+                  >
+                    {s}
+                  </motion.p>
+                ))}
+              </div>
+              <motion.div
+                className={styles.modalMainImg}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.25 }}
+                transition={{
+                  delay: 0.25 + skillTag.length * 0.08 + 0.1,
+                  duration: 0.5,
+                  ease: "easeOut",
+                }}
               >
-                여기 상세 설명 들어가면 됨
-              </motion.p>
+                <Image
+                  src={`/${imgSrc}`}
+                  width={600}
+                  height={450}
+                  alt="프로젝트 사진"
+                />
+              </motion.div>
             </motion.div>
           </motion.div>
         )}
