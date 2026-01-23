@@ -22,9 +22,9 @@ export default function Page() {
             <p className={styles.certificateTitle}>CERTIFICATE</p>
           </div>
           <hr />
-          <p className={styles.certificateName}>COSPRO 1급</p>
-          <p className={styles.certificateDes}>2024.01.01</p>
-          <p className={styles.certificateDes}>YBM IT</p>
+          <p className={styles.certificateName}>COSICAL 5등</p>
+          <p className={styles.certificateDes}>2025.01.18</p>
+          <p className={styles.certificateDes}>코리아IT아카데미</p>
           <div className={styles.medalWrapper}></div>
         </div>
         <div className={styles.certificate}>
@@ -40,8 +40,8 @@ export default function Page() {
             <p className={styles.certificateTitle}>CERTIFICATE</p>
           </div>
           <hr />
-          <p className={styles.certificateName}>COSICAL 5등</p>
-          <p className={styles.certificateDes}>2024.01.01</p>
+          <p className={styles.certificateName}>COSPRO 1급</p>
+          <p className={styles.certificateDes}>2021.11.28</p>
           <p className={styles.certificateDes}>YBM IT</p>
           <div className={styles.medalWrapper}></div>
         </div>
@@ -59,7 +59,7 @@ export default function Page() {
           </div>
           <hr />
           <p className={styles.certificateName}>COSPRO 2급</p>
-          <p className={styles.certificateDes}>2024.01.01</p>
+          <p className={styles.certificateDes}>2020.02.16</p>
           <p className={styles.certificateDes}>YBM IT</p>
           <div className={styles.medalWrapper}></div>
         </div>

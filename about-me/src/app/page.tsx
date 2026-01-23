@@ -281,26 +281,26 @@ export default function Home() {
               <div className={styles.timelineItems}>
                 <div className={styles.timelineItem}>
                   <p>
-                    <span className={styles.year}>2022-??-??</span> : 처음으로
+                    <span className={styles.year}>2018-01</span> : 처음으로
                     Python이라는 언어로 코딩을 시작했어요.
                   </p>
                 </div>
                 <div className={styles.timelineItem}>
                   <p>
-                    <span className={styles.year}>2022-??-??</span> : 처음으로
-                    Python이라는 언어로 코딩을 시작했어요.
+                    <span className={styles.year}>2019-07</span> : Discord Bot
+                    API를 사용해 처음으로 서비스를 만들어봤어요.
                   </p>
                 </div>
                 <div className={styles.timelineItem}>
                   <p>
-                    <span className={styles.year}>2022-??-??</span> : 처음으로
-                    Python이라는 언어로 코딩을 시작했어요.
+                    <span className={styles.year}>2020-02</span> : COSPRO 2급
+                    자격증을 취득했어요.
                   </p>
                 </div>
                 <div className={styles.timelineItem}>
                   <p>
-                    <span className={styles.year}>2022-??-??</span> : 처음으로
-                    Python이라는 언어로 코딩을 시작했어요.
+                    <span className={styles.year}>2021-11</span> : COSPRO 1급
+                    자격증을 취득했어요.
                   </p>
                 </div>
               </div>
@@ -327,26 +327,26 @@ export default function Home() {
               <div className={styles.timelineItems}>
                 <div className={styles.timelineItem}>
                   <p>
-                    <span className={styles.year}>2022-??-??</span> : 처음으로
-                    Python이라는 언어로 코딩을 시작했어요.
+                    <span className={styles.year}>2022-03</span> : 고등학교 코딩
+                    영재반에서 1년동안 앱개발을 진행했어요.
                   </p>
                 </div>
                 <div className={styles.timelineItem}>
                   <p>
-                    <span className={styles.year}>2022-??-??</span> : 처음으로
-                    Python이라는 언어로 코딩을 시작했어요.
+                    <span className={styles.year}>2023-12</span> : 크몽에서
+                    자동화 프로그램 개발로 외주를 받기 시작했어요.
                   </p>
                 </div>
                 <div className={styles.timelineItem}>
                   <p>
-                    <span className={styles.year}>2022-??-??</span> : 처음으로
-                    Python이라는 언어로 코딩을 시작했어요.
+                    <span className={styles.year}>2024-04</span> : 4년제 사립
+                    대학교에 소프트웨어학과로 입학했어요.
                   </p>
                 </div>
                 <div className={styles.timelineItem}>
                   <p>
-                    <span className={styles.year}>2022-??-??</span> : 처음으로
-                    Python이라는 언어로 코딩을 시작했어요.
+                    <span className={styles.year}>2025-09</span> : 대학교 AI
+                    챗봇 개발로 학보사 신문에 나오는 경험을 했어요.
                   </p>
                 </div>
               </div>

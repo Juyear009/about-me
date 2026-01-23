@@ -1,0 +1,97 @@
+.project {
+  cursor: pointer;
+  flex: 1;
+  padding: 30px 20px;
+  background-color: WHITE;
+  border-radius: 16px;
+  animation: project 0.8s ease-in;
+  transition: all 0.4s ease;
+}
+
+.projectSkelton {
+  flex: 1;
+  padding: 30px 20px;
+}
+
+.project:hover {
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+  scale: 101.5%;
+}
+
+@keyframes project {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
+.projectTitle {
+  font-size: 30px;
+  font-weight: bold;
+  padding-bottom: 18px;
+}
+
+.projectDes {
+  margin: 0;
+  font-size: 18px;
+  color: gray;
+  padding-bottom: 12px;
+}
+
+.projectMainImg {
+  width: 100%;
+  text-align: center;
+}
+
+.skillTag {
+  display: flex;
+  gap: 6px;
+  padding-bottom: 20px;
+}
+
+.skillTag p {
+  color: gray;
+  font-size: 16px;
+  background-color: #f2f1ef;
+  padding: 6px 12px 5px 12px;
+  border-radius: 100px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  width: 90vw;
+  height: 700px;
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modalContent {
+  color: white;
+  color: black;
+}
+
+.modalTitle {
+  font-size: 40px;
+  font-weight: bold;
+  padding-bottom: 18px;
+}
+
+.modalDes {
+  margin: 0;
+  font-size: 23px;
+  color: gray;
+  padding-bottom: 12px;
+}
