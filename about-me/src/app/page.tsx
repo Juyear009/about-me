@@ -5,8 +5,11 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import { myfont } from "./fonts";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
   const codingWords = [
     "개발자",
     "프로그래머",
@@ -407,6 +410,61 @@ export default function Home() {
             </p>
           </div>
         </FadeIn>
+      </div>
+      <div className={styles.footerSection}>
+        <div className={styles.footerDivide}>
+          <Image
+            className={styles.footerImage}
+            src={"/profile.png"}
+            height={60}
+            width={60}
+            alt="링크드인 로고"
+          />
+          <p className={styles.footerTitle}>Contact Me.</p>
+        </div>
+        <div className={styles.footerDivide}>
+          <div>
+            <p className={styles.footerTitle}>© Made by JUYEAR</p>
+            <a
+              href="https://webflow.com/templates/html/moxa-portfolio-website-template?ps_partner_key=c3RldmViZW5qYW1pbnM2NjY1&ps_xid=mYzBdIG1FLNANI&gsxid=mYzBdIG1FLNANI&gspk=c3RldmViZW5qYW1pbnM2NjY1"
+              className={styles.footerDes}
+            >
+              여기서 디자인을 참고했어요.
+            </a>
+          </div>
+          <div className={styles.snsLinks}>
+            <Image
+              className={styles.snsLogo}
+              onClick={() =>
+                router.push(
+                  "https://www.linkedin.com/in/junhyeon-park-549046347/",
+                )
+              }
+              src={"/sns_logos/linkedin_logo.png"}
+              height={50}
+              width={50}
+              alt="링크드인 로고"
+            />
+            <Image
+              className={styles.snsLogo}
+              onClick={() =>
+                router.push("https://www.instagram.com/juyear_coding/?__pwa=1")
+              }
+              src={"/sns_logos/instagram_logo.png"}
+              height={50}
+              width={50}
+              alt="인스타그램 로고"
+            />
+            <Image
+              className={styles.snsLogo}
+              onClick={() => router.push("mailto:githubbruny@gmail.com")}
+              src={"/sns_logos/gmail_logo.png"}
+              height={50}
+              width={50}
+              alt="지메일 로고"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
