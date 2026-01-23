@@ -1,5 +1,4 @@
 import styles from "./page.module.css";
-import Image from "next/image";
 import ProjectCard from "@/components/ProjectCard";
 
 export default function Page() {

@@ -76,6 +76,8 @@
   border-radius: 16px;
   padding: 40px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  gap: 50px;
 }
 
 .modalContent {
@@ -94,4 +96,39 @@
   font-size: 23px;
   color: gray;
   padding-bottom: 12px;
+}
+
+.smallTitle {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.projectDetailSection {
+  flex: 1;
+  display: flex;
+}
+
+.projectDetail {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+}
+
+.projectDetailTop {
+  flex: 1;
+  align-items: flex-start;
+}
+
+.projectDetailBottom {
+  flex: 1;
+}
+
+.projectDetailText {
+  padding-left: 24px;
+}
+
+.projectDetailText li {
+  font-size: 20px;
+  padding-top: 12px;
 }
