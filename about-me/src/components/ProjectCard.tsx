@@ -36,10 +36,27 @@ const projectDetails = {
     achievment: [],
   },
   "HARU AI": {
-    problem: [],
-    solution: [],
-    skillPoint: [],
-    achievment: [],
+    problem: [
+      "세대가 지날수록 뉴스 소비층이 점점 줄어듬",
+      "접근성이 좋지 않고, 길고 복잡하다는 단점이 있음",
+      "질 좋은 정보를 빠르게 습득하기 어렵다는 단점이 있음",
+    ],
+    solution: [
+      "뉴스를 AI가 3줄로 요약해서 보여줌",
+      "쇼츠/릴스와 같이 스크롤 형식을 지원해 접근성을 높임",
+      "날씨와 뉴스를 TTS가 브리핑해주는 기능을 제공",
+    ],
+    skillPoint: [
+      "React Native를 사용한 앱 개발",
+      "생성된 브리핑 대사를 토큰 단위로 잘라 TTS로 변환하여 끊기지 않고 재생될 수 있도록 함",
+      "모든 기사를 요약하지 않고, 처음 방문했을 경우 요약한 후 DB에 저장하는 식으로 API 비용을 절감",
+      "Nest Scheduling/CronJob을 사용하여 뉴스가 정해진 시간에 자동으로 갱신될 수 있도록 함",
+    ],
+    achievment: [
+      "앱 출시와 광고 수익을 위해 사업자 등록을 함",
+      "앱 개발부터 내부/비공개 테스트 그리고 출시 도전까지 한 사이클을 경험함",
+      "React Native, Scheduling, 웹소켓 등 다양한 스킬 습득",
+    ],
   },
   TRAIVEL: {
     problem: [],
