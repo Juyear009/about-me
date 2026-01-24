@@ -57,7 +57,7 @@ export default function Page() {
           imgSrc="haru_ai_2.png"
         />
         <ProjectCard
-          projectTitle="TARIVEL"
+          projectTitle="TRAIVEL"
           projectDes="이제 여행 일정을 AI로 한 번에 계획해보세요!"
           skillTag={["AI", "JS/TS", "NEXT", "EXPRESS", "SQL"]}
           imgSrc="traivel_1.png"

@@ -5,13 +5,57 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
+const projectDetails = {
+  "SANGMYUNG AI": {
+    problem: [
+      "학생들이 똑같은 질문을 반복적으로 올림",
+      "학교 공지사항을 이해하기에는 길고 복잡함",
+      "답변의 신뢰도가 떨어질 수 있음",
+    ],
+    solution: [
+      "학교 공지사항 데이터를 RAG 기반으로 학습시킴",
+      "사용자는 채팅 형식으로 간편하게 질문하고 답변을 받을 수 있음",
+      "답변의 신뢰도가 올라감",
+    ],
+    skillPoint: [
+      "RAG 기반으로 데이터 학습",
+      "Reranker로 답변 정확도 및 품질 향상",
+      "Faiss 병렬 처리로 문서 처리 속도 개선",
+      "Lottie, react-calendar 등 UI 개선 라이브러리 사용 ",
+    ],
+    achievment: [
+      "4일동안 약 400명의 서비스 이용 달성",
+      "학보사 인터뷰 요청으로 학교 신문에 나옴",
+      "RAG, Reranker, Faiss 등 AI 서비스와 관련된 다양한 기술 습득",
+    ],
+  },
+  DISMU: {
+    problem: [],
+    solution: [],
+    skillPoint: [],
+    achievment: [],
+  },
+  "HARU AI": {
+    problem: [],
+    solution: [],
+    skillPoint: [],
+    achievment: [],
+  },
+  TRAIVEL: {
+    problem: [],
+    solution: [],
+    skillPoint: [],
+    achievment: [],
+  },
+};
+
 export default function ProjectCard({
   projectTitle,
   projectDes,
   skillTag,
   imgSrc,
 }: {
-  projectTitle: string;
+  projectTitle: keyof typeof projectDetails;
   projectDes: string;
   skillTag: string[];
   imgSrc: string;
@@ -144,22 +188,24 @@ export default function ProjectCard({
                   >
                     <p className={styles.smallTitle}>문제 정의</p>
                     <ul className={styles.projectDetailText}>
-                      <li>fdsafdsa</li>
-                      <li>fdsafdsa</li>
-                      <li>fdsafdsa</li>
+                      {projectDetails[`${projectTitle}`].problem.map((p, i) => (
+                        <li key={i}>{p}</li>
+                      ))}
                     </ul>
                   </motion.div>
                   <motion.div
                     className={styles.projectDetailBottom}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.25 + 6 * 0.08 }}
+                    transition={{ delay: 0.25 + 7 * 0.08 }}
                   >
                     <p className={styles.smallTitle}>해결 방식</p>
                     <ul className={styles.projectDetailText}>
-                      <li>fdsafdsa</li>
-                      <li>fdsafdsa</li>
-                      <li>fdsafdsa</li>
+                      {projectDetails[`${projectTitle}`].solution.map(
+                        (s, i) => (
+                          <li key={i}>{s}</li>
+                        ),
+                      )}
                     </ul>
                   </motion.div>
                 </div>
@@ -168,13 +214,15 @@ export default function ProjectCard({
                     className={styles.projectDetailTop}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.25 + 7 * 0.08 }}
+                    transition={{ delay: 0.25 + 6 * 0.08 }}
                   >
                     <p className={styles.smallTitle}>스킬포인트</p>
                     <ul className={styles.projectDetailText}>
-                      <li>fdsafdsa</li>
-                      <li>fdsafdsa</li>
-                      <li>fdsafdsa</li>
+                      {projectDetails[`${projectTitle}`].skillPoint.map(
+                        (s, i) => (
+                          <li key={i}>{s}</li>
+                        ),
+                      )}
                     </ul>
                   </motion.div>
                   <motion.div
@@ -185,9 +233,11 @@ export default function ProjectCard({
                   >
                     <p className={styles.smallTitle}>결과&성과</p>
                     <ul className={styles.projectDetailText}>
-                      <li>fdsafdsa</li>
-                      <li>fdsafdsa</li>
-                      <li>fdsafdsa</li>
+                      {projectDetails[`${projectTitle}`].achievment.map(
+                        (a, i) => (
+                          <li key={i}>{a}</li>
+                        ),
+                      )}
                     </ul>
                   </motion.div>
                 </div>
