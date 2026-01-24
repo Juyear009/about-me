@@ -30,10 +30,10 @@ const projectDetails = {
     ],
   },
   DISMU: {
-    problem: [],
-    solution: [],
-    skillPoint: [],
-    achievment: [],
+    problem: ["", "", ""],
+    solution: ["", "", ""],
+    skillPoint: ["", "", ""],
+    achievment: ["", "", ""],
   },
   "HARU AI": {
     problem: [
@@ -59,10 +59,10 @@ const projectDetails = {
     ],
   },
   TRAIVEL: {
-    problem: [],
-    solution: [],
-    skillPoint: [],
-    achievment: [],
+    problem: ["", "", ""],
+    solution: ["", "", ""],
+    skillPoint: ["", "", ""],
+    achievment: ["", "", ""],
   },
 };
 
