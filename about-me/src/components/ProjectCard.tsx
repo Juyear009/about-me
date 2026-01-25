@@ -30,7 +30,11 @@ const projectDetails = {
     ],
   },
   DISMU: {
-    problem: ["", "", ""],
+    problem: [
+      "AI 노래 시장이 점점 커지고 있지만 이를 위한 플랫폼이 없음",
+      "AI 노래에 대한 수익이나 저작권에 대해 보장해주는 플랫폼이 없음",
+      "",
+    ],
     solution: ["", "", ""],
     skillPoint: ["", "", ""],
     achievment: ["", "", ""],
