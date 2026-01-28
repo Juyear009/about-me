@@ -339,14 +339,15 @@ export default function Home() {
                 </div>
                 <div className={styles.timelineItem}>
                   <p>
-                    <span className={styles.year}>2024-04</span> : 4년제 사립
+                    <span className={styles.year}>2024-03</span> : 4년제 사립
                     대학교에 소프트웨어학과로 입학했어요.
                   </p>
                 </div>
                 <div className={styles.timelineItem}>
                   <p>
-                    <span className={styles.year}>2025-09</span> : 대학교 AI
-                    챗봇 개발로 학보사 신문에 나오는 경험을 했어요.
+                    <span className={styles.year}>2025-01</span> :
+                    &quot;COSICAL:100 코딩경진대회&quot;에서 5등으로 장려상을
+                    수상했어요
                   </p>
                 </div>
               </div>
@@ -357,26 +358,27 @@ export default function Home() {
               <div className={styles.timelineItems}>
                 <div className={styles.timelineItem}>
                   <p>
-                    <span className={styles.year}>2022-??-??</span> : 처음으로
-                    Python이라는 언어로 코딩을 시작했어요.
+                    <span className={styles.year}>2025-08</span> : HARU AI 앱
+                    개발과 이를 위한 사업자 등록을 진행했어요.
                   </p>
                 </div>
                 <div className={styles.timelineItem}>
                   <p>
-                    <span className={styles.year}>2022-??-??</span> : 처음으로
-                    Python이라는 언어로 코딩을 시작했어요.
+                    <span className={styles.year}>2025-09</span> :
+                    AI미디어콘텐츠를 부전공으로 선택하여 수강하기 시작했어요.
                   </p>
                 </div>
                 <div className={styles.timelineItem}>
                   <p>
-                    <span className={styles.year}>2022-??-??</span> : 처음으로
-                    Python이라는 언어로 코딩을 시작했어요.
+                    <span className={styles.year}>2025-09</span> : 대학교 AI
+                    챗봇 개발로 학보사 신문에 나오는 경험을 했어요.
                   </p>
                 </div>
                 <div className={styles.timelineItem}>
                   <p>
-                    <span className={styles.year}>2022-??-??</span> : 처음으로
-                    Python이라는 언어로 코딩을 시작했어요.
+                    <span className={styles.year}>2025-10</span> :
+                    &quot;고려사와 AI&quot; 관련 논문에 보조 프로그램 제작으로
+                    참여했어요.
                   </p>
                 </div>
               </div>
