@@ -37,7 +37,7 @@ export default function Page() {
             "SQL",
             "FIREBASE",
           ]}
-          imgSrc="dismu_2.png"
+          imgSrc="dismu_5.png"
         />
       </div>
       <div className={styles.projects}>

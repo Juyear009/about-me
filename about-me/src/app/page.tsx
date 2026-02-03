@@ -430,6 +430,7 @@ export default function Home() {
             <a
               href="https://webflow.com/templates/html/moxa-portfolio-website-template?ps_partner_key=c3RldmViZW5qYW1pbnM2NjY1&ps_xid=mYzBdIG1FLNANI&gsxid=mYzBdIG1FLNANI&gspk=c3RldmViZW5qYW1pbnM2NjY1"
               className={styles.footerDes}
+              target="_blank"
             >
               여기서 디자인을 참고했어요.
             </a>
