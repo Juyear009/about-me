@@ -80,6 +80,14 @@
   gap: 24px;
 }
 
+@media (max-width: 1200px) {
+  .modal {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+  }
+}
+
 .modalContent {
   color: white;
   color: black;

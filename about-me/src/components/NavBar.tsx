@@ -56,7 +56,16 @@ export default function NavBar() {
         </p>
       </div>
       <div className={styles.supportNav}>
-        <p>문의하기</p>
+        <p
+          onClick={() => {
+            window.open(
+              "https://mail.google.com/mail/?view=cm&fs=1&to=githubbruny@gmail.com&su=문의하기",
+              "_blank",
+            );
+          }}
+        >
+          문의하기
+        </p>
       </div>
     </div>
   );
