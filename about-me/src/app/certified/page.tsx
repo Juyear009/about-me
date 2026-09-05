@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import styles from "./page.module.css";
 import credentials, { type Credential } from "@/data/certificates";
+
+export const metadata: Metadata = {
+  title: "Certified",
+  description:
+    "SQLD, COSPRO 1급·2급 자격증과 COSICAL:100 수상 이력을 정리했습니다.",
+  alternates: { canonical: "/certified" },
+};
 
 const SECTIONS = [
   { kind: "certification", label: "CERTIFICATION", caption: "자격증" },

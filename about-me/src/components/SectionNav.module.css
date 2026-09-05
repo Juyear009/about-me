@@ -1,0 +1,79 @@
+.nav {
+  position: fixed;
+  right: clamp(16px, 2.2vw, 32px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.dot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.dot::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.22);
+  transition:
+    width 0.3s ease,
+    height 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.dot:hover::after {
+  background-color: var(--accent);
+}
+
+.active::after {
+  width: 11px;
+  height: 11px;
+  background-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(236, 73, 49, 0.16);
+}
+
+.label {
+  position: absolute;
+  right: 22px;
+  padding: 5px 11px 4px 11px;
+  background-color: var(--dark);
+  border-radius: 100px;
+  color: var(--background);
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(6px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.dot:hover .label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 화면이 좁으면 본문과 겹치므로 숨긴다 */
+@media (max-width: 1024px) {
+  .nav {
+    display: none;
+  }
+}

@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import styles from "./page.module.css";
 import ProjectCard from "@/components/ProjectCard";
+
+export const metadata: Metadata = {
+  title: "Project",
+  description:
+    "SANGMYUNG AI, DISMU, HARU AI, TRAIVEL. 문제 정의부터 해결 방식과 성과까지 정리한 JUYEAR의 프로젝트입니다.",
+  alternates: { canonical: "/project" },
+};
 
 export default function Page() {
   return (

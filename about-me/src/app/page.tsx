@@ -4,11 +4,119 @@ import SkillIcon from "@/components/SkillIcon";
 import styles from "./page.module.css";
 import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
+import CountUp from "@/components/CountUp";
+import ConsoleGreeting from "@/components/ConsoleGreeting";
+import IconRain from "@/components/IconRain";
+import timeline from "@/data/timeline";
+import SectionNav from "@/components/SectionNav";
 import { myfont } from "./fonts";
 import { useRouter } from "next/navigation";
+import { Fragment, useEffect, useState } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+
+/** 글자 하나씩 감싸 개별 hover 반응을 준다. 단어 단위로 묶어 줄바꿈은 막는다 */
+function SplitText({ text }: { text: string }) {
+  const words = text.split(" ");
+
+  return (
+    <>
+      {words.map((word, wordIndex) => (
+        <Fragment key={wordIndex}>
+          {wordIndex > 0 && " "}
+          <span className={styles.titleWord}>
+            {Array.from(word).map((char, charIndex) => (
+              <span key={charIndex} className={styles.titleChar}>
+                {char}
+              </span>
+            ))}
+          </span>
+        </Fragment>
+      ))}
+    </>
+  );
+}
+
+function TimelineImage({ src }: { src: string }) {
+  return (
+    <div className={styles.timelineImg}>
+      <Image
+        height={250}
+        width={400}
+        src={src}
+        alt="타임라인 이미지"
+        loading="eager"
+      />
+    </div>
+  );
+}
 
 export default function Home() {
   const router = useRouter();
+
+  // 프로필 사진이 커서 쪽으로 살짝 기울어지도록 하는 값
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(pointerY, [-0.5, 0.5], [12, -12]), {
+    stiffness: 180,
+    damping: 18,
+  });
+  const rotateY = useSpring(useTransform(pointerX, [-0.5, 0.5], [-12, 12]), {
+    stiffness: 180,
+    damping: 18,
+  });
+
+  const handleTilt = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    pointerX.set((e.clientX - rect.left) / rect.width - 0.5);
+    pointerY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const resetTilt = () => {
+    pointerX.set(0);
+    pointerY.set(0);
+  };
+
+  // 프로필 사진을 다섯 번 연달아 누르면 한 바퀴 돈다
+  const [profileClicks, setProfileClicks] = useState(0);
+  const [profileSpinning, setProfileSpinning] = useState(false);
+
+  const handleProfileClick = () => {
+    if (profileSpinning) return;
+    setProfileClicks((count) => {
+      if (count + 1 >= 5) {
+        setProfileSpinning(true);
+        return 0;
+      }
+      return count + 1;
+    });
+  };
+
+  useEffect(() => {
+    if (!profileSpinning) return;
+    const timer = setTimeout(() => setProfileSpinning(false), 2600);
+    return () => clearTimeout(timer);
+  }, [profileSpinning]);
+
+  // OTHERS 박스를 다섯 번 누르면 적혀 있는 기술들이 쏟아진다
+  const [othersClicks, setOthersClicks] = useState(0);
+  const [raining, setRaining] = useState(false);
+
+  const handleOthersClick = () => {
+    if (raining) return;
+    setOthersClicks((count) => {
+      if (count + 1 >= 5) {
+        setRaining(true);
+        return 0;
+      }
+      return count + 1;
+    });
+  };
+
+  useEffect(() => {
+    if (!raining) return;
+    const timer = setTimeout(() => setRaining(false), 6000);
+    return () => clearTimeout(timer);
+  }, [raining]);
 
   const codingWords = [
     "개발자",
@@ -129,18 +237,43 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.HeroSection}>
+      <ConsoleGreeting />
+      <SectionNav />
+      {raining && <IconRain />}
+      <div className={styles.HeroSection} id="hero">
         <div className={styles.titleSection}>
-          <p className={styles.mainTitle1}>대학생 개발자</p>
-          <p className={styles.mainTitle1}>JUYEAR</p>
+          <p className={styles.mainTitle1}>
+            <SplitText text="대학생 개발자" />
+          </p>
+          <p className={styles.mainTitle1}>
+            <SplitText text="JUYEAR" />
+          </p>
         </div>
-        <Image
-          className={styles.profileImg}
-          height={450}
-          width={450}
-          src={"/profile.png"}
-          alt="프로필 사진"
-        />
+        <div
+          className={styles.profileTilt}
+          onMouseMove={handleTilt}
+          onMouseLeave={resetTilt}
+          onClick={handleProfileClick}
+        >
+          <motion.div style={{ rotateX, rotateY }}>
+            <div className={profileSpinning ? styles.profileSpin : undefined}>
+              <Image
+                className={styles.profileImg}
+                height={450}
+                width={450}
+                src={"/profile.png"}
+                alt="프로필 사진"
+              />
+            </div>
+          </motion.div>
+          {profileSpinning && (
+            <span className={styles.profileBubble}>그만 누르세요 😵‍💫</span>
+          )}
+        </div>
+        <div className={styles.scrollHint} aria-hidden="true">
+          <span className={styles.scrollHintText}>SCROLL</span>
+          <span className={styles.scrollLine} />
+        </div>
       </div>
       <div className={styles.keywordSection}>
         <div className={styles.trackLeft}>
@@ -160,7 +293,7 @@ export default function Home() {
           ))}
         </div>
       </div>
-      <div className={styles.profileSummary}>
+      <div className={styles.profileSummary} id="profile">
         <FadeIn>
           <div className={styles.profileSummaryHeading}>
             <p className={styles.profileSummaryTitle}>
@@ -200,7 +333,9 @@ export default function Home() {
               <p className={styles.boxDes}>LOCATION</p>
             </div>
             <div className={styles.profileSummaryBox2}>
-              <p className={styles.boxTitle}>7+</p>
+              <p className={styles.boxTitle}>
+                <CountUp to={7} suffix="+" />
+              </p>
               <p className={styles.boxDes}>YEARS OF EXPERIENCE</p>
             </div>
             <div className={styles.profileSummaryBox1}>
@@ -210,7 +345,7 @@ export default function Home() {
           </div>
         </FadeIn>
       </div>
-      <div className={styles.skillSection}>
+      <div className={styles.skillSection} id="skills">
         <FadeIn>
           <div className={styles.skillSectionHeading}>
             <Image
@@ -251,7 +386,10 @@ export default function Home() {
             </div>
           </FadeIn>
           <FadeIn>
-            <div className={`${styles.skillBox} ${styles.textBox}`}>
+            <div
+              className={`${styles.skillBox} ${styles.textBox}`}
+              onClick={handleOthersClick}
+            >
               <span className={styles.label}>OTHERS</span>
               <p>RAG · FAISS · FASTAPI · EXPRESS · ARCHITECTURE</p>
               <p>VERCEL · SUPABASE · POSTMAN · SWAGGER · NETWORK</p>
@@ -260,7 +398,7 @@ export default function Home() {
           </FadeIn>
         </div>
       </div>
-      <div className={styles.timelineSection}>
+      <div className={styles.timelineSection} id="timeline">
         <FadeIn>
           <div className={styles.timelineSectionHeading}>
             <Image
@@ -276,202 +414,28 @@ export default function Home() {
           </div>
         </FadeIn>
         <div className={styles.timelineBody}>
-          <FadeIn>
-            <div className={styles.timelineDivide}>
-              <div className={styles.timelineItems}>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2018-01</span> : 처음으로
-                    Python이라는 언어로 코딩을 시작했어요.
-                  </p>
-                </div>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2019-07</span> : Discord Bot
-                    API를 사용해 처음으로 서비스를 만들어봤어요.
-                  </p>
-                </div>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2020-02</span> : COSPRO 2급
-                    자격증을 취득했어요.
-                  </p>
-                </div>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2021-11</span> : COSPRO 1급
-                    자격증을 취득했어요.
-                  </p>
-                </div>
+          {timeline.map((block) => (
+            <FadeIn key={block.image}>
+              <div className={styles.timelineDivide}>
+                {block.imageFirst && <TimelineImage src={block.image} />}
+                <ul className={styles.timelineItems}>
+                  {block.entries.map((entry) => (
+                    <li
+                      key={`${entry.date}-${entry.text}`}
+                      className={styles.timelineItem}
+                    >
+                      <span className={styles.timelineDate}>{entry.date}</span>
+                      <p className={styles.timelineText}>{entry.text}</p>
+                    </li>
+                  ))}
+                </ul>
+                {!block.imageFirst && <TimelineImage src={block.image} />}
               </div>
-              <div className={styles.timelineImg}>
-                <Image
-                  height={250}
-                  width={400}
-                  src={"/timelineImg/timeline_img1.jpg"}
-                  alt="타임라인 이미지"
-                  loading="eager"
-                />
-              </div>
-            </div>
-          </FadeIn>
-          <FadeIn>
-            <div className={styles.timelineDivide}>
-              <div className={styles.timelineImg}>
-                <Image
-                  height={250}
-                  width={400}
-                  src={"/timelineImg/timeline_img2.avif"}
-                  alt="타임라인 이미지"
-                  loading="eager"
-                />
-              </div>
-              <div className={styles.timelineItems}>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2022-03</span> : 고등학교 코딩
-                    영재반에서 1년동안 앱개발을 진행했어요.
-                  </p>
-                </div>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2023-12</span> : 크몽에서
-                    자동화 프로그램 개발로 외주를 받기 시작했어요.
-                  </p>
-                </div>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2024-03</span> : 4년제 사립
-                    대학교에 소프트웨어학과로 입학했어요.
-                  </p>
-                </div>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2025-01</span> :
-                    &quot;COSICAL:100 코딩경진대회&quot;에서 5등으로 장려상을
-                    수상했어요
-                  </p>
-                </div>
-              </div>
-            </div>
-          </FadeIn>
-          <FadeIn>
-            <div className={styles.timelineDivide}>
-              <div className={styles.timelineItems}>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2025-08</span> : HARU AI 앱
-                    개발과 이를 위한 사업자 등록을 진행했어요.
-                  </p>
-                </div>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2025-09</span> :
-                    AI미디어콘텐츠를 부전공으로 선택하여 수강하기 시작했어요.
-                  </p>
-                </div>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2025-09</span> : 대학교 AI
-                    챗봇 개발로 학보사 신문에 나오는 경험을 했어요.
-                  </p>
-                </div>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2025-10</span> :
-                    &quot;고려사와 AI&quot; 관련 논문에 보조 프로그램 제작으로
-                    참여했어요.
-                  </p>
-                </div>
-              </div>
-              <div className={styles.timelineImg}>
-                <Image
-                  height={250}
-                  width={400}
-                  src={"/timelineImg/timeline_img3.jpg"}
-                  alt="타임라인 이미지"
-                  loading="eager"
-                />
-              </div>
-            </div>
-          </FadeIn>
-          <FadeIn>
-            <div className={styles.timelineDivide}>
-              <div className={styles.timelineImg}>
-                <Image
-                  height={250}
-                  width={400}
-                  src={"/timelineImg/timeline_img4.jpg"}
-                  alt="타임라인 이미지"
-                  loading="eager"
-                />
-              </div>
-              <div className={styles.timelineItems}>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2025-11</span> : 학교 전용 AI
-                    챗봇을 배포해 나흘 만에 400명 가까운 학우가 사용했어요.
-                  </p>
-                </div>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2025-12</span> : 코딩테스트
-                    준비를 시작해 1000문제 가까이 풀며 플래티넘 5에 올랐어요.
-                  </p>
-                </div>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2026-01</span> : 첫 앱 HARU
-                    AI를 Google Play 스토어에 출시했어요.
-                  </p>
-                </div>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2026-04</span> : 16기 탈락
-                    이후 1년을 준비해 SW마에스트로 17기에 합격했어요.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </FadeIn>
-          <FadeIn>
-            <div className={styles.timelineDivide}>
-              <div className={styles.timelineItems}>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2026-05</span> : HARU AI
-                    광고 영상을 직접 만들어 집행하고 설치 전환율 28.5%를
-                    기록했어요.
-                  </p>
-                </div>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2026-08</span> : 테크리더로서
-                    SDD와 티켓 발행 구조 등 팀 개발 환경을 구축했어요.
-                  </p>
-                </div>
-                <div className={styles.timelineItem}>
-                  <p>
-                    <span className={styles.year}>2026-09</span> : 데이터
-                    모델링과 SQL 활용을 다루는 국가공인 SQLD 자격증을
-                    취득했어요.
-                  </p>
-                </div>
-              </div>
-              <div className={styles.timelineImg}>
-                <Image
-                  height={250}
-                  width={400}
-                  src={"/timelineImg/timeline_img5.jpg"}
-                  alt="타임라인 이미지"
-                  loading="eager"
-                />
-              </div>
-            </div>
-          </FadeIn>
+            </FadeIn>
+          ))}
         </div>
       </div>
-      <div className={styles.mottoSection}>
+      <div className={styles.mottoSection} id="motto">
         <FadeIn>
           <div className={styles.mottoSectionHeading}>
             <Image

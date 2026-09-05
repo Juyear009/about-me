@@ -6,6 +6,12 @@
   width: var(--icon-size);
   height: var(--icon-size);
   flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.icon:hover {
+  transform: translateY(-5px);
+  z-index: 2;
 }
 
 .icon img {
