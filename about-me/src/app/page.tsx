@@ -310,6 +310,7 @@ export default function Home() {
                   width={400}
                   src={"/timelineImg/timeline_img1.jpg"}
                   alt="타임라인 이미지"
+                  loading="eager"
                 />
               </div>
             </div>
@@ -322,6 +323,7 @@ export default function Home() {
                   width={400}
                   src={"/timelineImg/timeline_img2.avif"}
                   alt="타임라인 이미지"
+                  loading="eager"
                 />
               </div>
               <div className={styles.timelineItems}>
@@ -388,6 +390,81 @@ export default function Home() {
                   width={400}
                   src={"/timelineImg/timeline_img3.jpg"}
                   alt="타임라인 이미지"
+                  loading="eager"
+                />
+              </div>
+            </div>
+          </FadeIn>
+          <FadeIn>
+            <div className={styles.timelineDivide}>
+              <div className={styles.timelineImg}>
+                <Image
+                  height={250}
+                  width={400}
+                  src={"/timelineImg/timeline_img4.jpg"}
+                  alt="타임라인 이미지"
+                  loading="eager"
+                />
+              </div>
+              <div className={styles.timelineItems}>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2025-11</span> : 학교 전용 AI
+                    챗봇을 배포해 나흘 만에 400명 가까운 학우가 사용했어요.
+                  </p>
+                </div>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2025-12</span> : 코딩테스트
+                    준비를 시작해 1000문제 가까이 풀며 플래티넘 5에 올랐어요.
+                  </p>
+                </div>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2026-01</span> : 첫 앱 HARU
+                    AI를 Google Play 스토어에 출시했어요.
+                  </p>
+                </div>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2026-04</span> : 16기 탈락
+                    이후 1년을 준비해 SW마에스트로 17기에 합격했어요.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+          <FadeIn>
+            <div className={styles.timelineDivide}>
+              <div className={styles.timelineItems}>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2026-05</span> : HARU AI
+                    광고 영상을 직접 만들어 집행하고 설치 전환율 28.5%를
+                    기록했어요.
+                  </p>
+                </div>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2026-08</span> : 테크리더로서
+                    SDD와 티켓 발행 구조 등 팀 개발 환경을 구축했어요.
+                  </p>
+                </div>
+                <div className={styles.timelineItem}>
+                  <p>
+                    <span className={styles.year}>2026-09</span> : 데이터
+                    모델링과 SQL 활용을 다루는 국가공인 SQLD 자격증을
+                    취득했어요.
+                  </p>
+                </div>
+              </div>
+              <div className={styles.timelineImg}>
+                <Image
+                  height={250}
+                  width={400}
+                  src={"/timelineImg/timeline_img5.jpg"}
+                  alt="타임라인 이미지"
+                  loading="eager"
                 />
               </div>
             </div>

@@ -1,5 +1,6 @@
 .page {
-  padding: 160px 80px;
+  padding: clamp(140px, 12vw, 180px) var(--page-x) clamp(80px, 10vw, 160px)
+    var(--page-x);
 }
 
 .titleSection {
@@ -7,8 +8,9 @@
 }
 
 .title {
-  font-size: 50px;
+  font-size: clamp(32px, 4.4vw, 50px);
   font-weight: bold;
+  word-break: keep-all;
 }
 
 @keyframes title {
@@ -24,92 +26,175 @@
 
 .des {
   margin-top: 10px;
-  font-size: 25px;
+  font-size: clamp(17px, 2.2vw, 25px);
   color: rgb(184, 183, 183);
+  word-break: keep-all;
 }
 
-.certifications {
-  margin-top: 30px;
-  display: flex;
-  gap: 35px;
-  flex-wrap: wrap;
+/* ─────────────────── 섹션 (자격증 / 수상) ─────────────────── */
+
+.section {
+  margin-top: clamp(48px, 6vw, 70px);
 }
 
-.certificate {
-  position: relative;
-  flex: 1;
-  background-color: white;
-  border-radius: 16px;
-  padding: 30px 20px;
-  animation: certificate 0.8s ease-in;
-  transition: all 0.4s ease;
-  min-width: 350px;
-}
-
-.certificate:hover {
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
-  scale: 101.5%;
-}
-
-@keyframes certificate {
-  from {
-    opacity: 0%;
-  }
-  to {
-    opacity: 100%;
-  }
-}
-
-.certificateTitle {
-  font-size: 30px;
-  font-weight: bold;
-  padding-bottom: 30px;
-  text-align: center;
-}
-
-.certificateName {
-  font-weight: bold;
-  padding-top: 18px;
-  font-size: 25px;
-}
-
-.certificateTop {
-  position: relative;
+.sectionHead {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 12px;
+  padding-bottom: clamp(18px, 2vw, 24px);
+}
+
+.sectionLabel {
+  font-size: clamp(15px, 1.6vw, 18px);
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.sectionCaption {
+  font-size: clamp(14px, 1.4vw, 16px);
+  font-weight: bold;
+  color: gray;
+  white-space: nowrap;
+}
+
+.sectionRule {
+  flex: 1;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.sectionCount {
+  font-size: clamp(14px, 1.4vw, 16px);
+  font-weight: bold;
+  color: gray;
+}
+
+/* ─────────────────────────── 카드 ─────────────────────────── */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+  gap: clamp(20px, 2.8vw, 35px);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 16px;
+  padding: clamp(22px, 2.6vw, 30px);
+  opacity: 0;
+  animation: card 0.6s ease-out forwards;
+  transition:
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+.card:hover {
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+@keyframes card {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: clamp(24px, 3vw, 34px);
 }
 
 .logoWrapper {
   display: flex;
-  position: absolute;
-  left: 0;
-  top: -10px;
-  padding: 5px;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  padding: 8px;
   border: 1px solid lightgray;
-  border-radius: 100%;
+  border-radius: 50%;
+  background-color: white;
 }
 
-.certificateDes {
-  margin-top: 20px;
-  font-size: 20px;
-}
-
-.medalWrapper {
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
-}
-
-.medalWrapper {
-  width: 100px;
-  height: 100px;
+.medal {
+  width: 52px;
+  height: 52px;
   background-image: url("/medal_1.svg");
   background-size: contain;
   background-repeat: no-repeat;
-  transition: background-image 0.2s ease;
+  background-position: center;
+  opacity: 0.35;
+  transition:
+    opacity 0.3s ease,
+    background-image 0.2s ease;
 }
 
-.certificate:hover .medalWrapper {
+.card:hover .medal {
   background-image: url("/medal_2.svg");
+  opacity: 1;
+}
+
+.cardName {
+  font-size: clamp(22px, 2.4vw, 27px);
+  font-weight: bold;
+  line-height: 1.3;
+  word-break: keep-all;
+}
+
+.cardNote {
+  margin-top: 8px;
+  font-size: clamp(14px, 1.4vw, 16px);
+  color: gray;
+  word-break: keep-all;
+}
+
+/* 메인 페이지의 라벨/값 조합과 같은 규칙을 쓴다.
+   라벨은 1행, 값은 2행에 놓아 글자 길이와 무관하게 서로 높이를 맞춘다. */
+.cardMeta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: clamp(16px, 2.4vw, 32px);
+  row-gap: 6px;
+  align-items: start;
+  margin-top: auto;
+  padding-top: clamp(22px, 2.6vw, 28px);
+}
+
+.metaLabel {
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.metaValue {
+  font-size: clamp(17px, 1.8vw, 20px);
+  font-weight: bold;
+  line-height: 1.35;
+  /* 긴 기관명이 카드를 넘지 않도록 필요한 곳에서만 끊는다 */
+  overflow-wrap: anywhere;
+}
+
+.metaRight {
+  text-align: right;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    opacity: 1;
+    animation: none;
+  }
 }

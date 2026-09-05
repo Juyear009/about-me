@@ -1,0 +1,17 @@
+<svg width="48" height="48" viewBox="3.6 1.6 16.8 16.8" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="dbBody" x1="4" y1="5" x2="20" y2="18" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4C9FE2"/>
+      <stop offset="1" stop-color="#28598F"/>
+    </linearGradient>
+    <linearGradient id="dbCap" x1="4" y1="2" x2="20" y2="8" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8ED0F6"/>
+      <stop offset="1" stop-color="#4C9FE2"/>
+    </linearGradient>
+  </defs>
+  <path d="M4 5v10c0 1.657 3.582 3 8 3s8-1.343 8-3V5z" fill="url(#dbBody)"/>
+  <path d="M4 10c0 1.657 3.582 3 8 3s8-1.343 8-3" stroke="#A9D8F7" stroke-width="1.1" stroke-linecap="round"/>
+  <path d="M4 15c0 1.657 3.582 3 8 3s8-1.343 8-3" stroke="#A9D8F7" stroke-width="1.1" stroke-linecap="round"/>
+  <ellipse cx="12" cy="5" rx="8" ry="3" fill="url(#dbCap)"/>
+  <ellipse cx="12" cy="5" rx="4.6" ry="1.5" fill="#DCEEFB" opacity="0.55"/>
+</svg>

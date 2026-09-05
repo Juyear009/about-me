@@ -1,28 +1,32 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import type { CSSProperties } from "react";
+import styles from "./SkillIcon.module.css";
 
 export default function SkillIcon({
   skill,
 }: {
   skill: { hover: string; default: string; size: number; name: string };
 }) {
-  const [hover, setHover] = useState(false);
-
-  useEffect(() => {
-    const img = new window.Image();
-    img.src = skill.hover;
-  }, [skill.hover]);
-
   return (
-    <Image
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      src={hover ? skill.hover : skill.default}
-      width={skill.size}
-      height={skill.size}
-      alt={`${skill.name} logo`}
-    />
+    <span
+      className={styles.icon}
+      style={{ "--icon-size": `${skill.size}px` } as CSSProperties}
+    >
+      <Image
+        className={styles.base}
+        src={skill.default}
+        width={skill.size}
+        height={skill.size}
+        alt={`${skill.name} 로고`}
+      />
+      <Image
+        className={styles.color}
+        src={skill.hover}
+        width={skill.size}
+        height={skill.size}
+        alt=""
+        aria-hidden="true"
+      />
+    </span>
   );
 }

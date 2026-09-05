@@ -1,5 +1,6 @@
 .page {
-  padding: 160px 80px;
+  padding: clamp(140px, 12vw, 180px) var(--page-x) clamp(80px, 10vw, 160px)
+    var(--page-x);
 }
 
 .titleSection {
@@ -7,8 +8,9 @@
 }
 
 .title {
-  font-size: 50px;
+  font-size: clamp(32px, 4.4vw, 50px);
   font-weight: bold;
+  word-break: keep-all;
 }
 
 @keyframes title {
@@ -24,13 +26,14 @@
 
 .des {
   margin-top: 10px;
-  font-size: 25px;
+  font-size: clamp(17px, 2.2vw, 25px);
   color: rgb(184, 183, 183);
+  word-break: keep-all;
 }
 
 .projects {
-  margin-top: 30px;
+  margin-top: clamp(24px, 3vw, 30px);
   display: flex;
-  gap: 35px;
+  gap: clamp(20px, 2.8vw, 35px);
   flex-wrap: wrap;
 }

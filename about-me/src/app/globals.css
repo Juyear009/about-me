@@ -1,6 +1,16 @@
 :root {
   --background: #f2f1ef;
   --foreground: #171717;
+  --accent: #ec4931;
+  --dark: #161513;
+
+  /* 페이지 좌우 여백 — 모든 페이지가 공유한다 */
+  --page-x: clamp(20px, 5.5vw, 80px);
+  /* 네비게이션 높이를 감안한 페이지 상단 여백 */
+  --page-top: clamp(120px, 11vw, 160px);
+  /* 본문 최대 폭 */
+  --content-w: 1000px;
+  --content-wide: 1200px;
 }
 
 ::-webkit-scrollbar {
@@ -28,6 +38,11 @@ body {
   margin: 0;
 }
 
+/* 이미지가 컨테이너를 넘지 않도록 하는 최소 안전장치 */
+img {
+  max-width: 100%;
+}
+
 .fadeIn {
   opacity: 0;
   transform: translateY(40px);
@@ -39,4 +54,20 @@ body {
 .fadeIn.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* 모션을 줄이도록 설정한 사용자에게는 애니메이션을 제거한다 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .fadeIn {
+    opacity: 1;
+    transform: none;
+  }
 }

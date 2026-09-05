@@ -2,12 +2,13 @@
   position: fixed;
   z-index: 999;
   width: 100%;
-  padding: 35px 40px;
+  padding: clamp(18px, 2.4vw, 35px) var(--page-x);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
   font-weight: bold;
-  background-color: #f2f1ef;
+  background-color: var(--background);
   animation: nav 0.4s ease-out;
 }
 
@@ -22,39 +23,72 @@
   }
 }
 
-.container p {
+.container a {
+  color: inherit;
+  text-decoration: none;
   cursor: pointer;
 }
 
 .homeNav {
-  font-size: 20px;
+  font-size: clamp(17px, 1.4vw, 20px);
+  white-space: nowrap;
 }
 
 .pageNav {
   display: flex;
   justify-content: center;
-  gap: 80px;
+  gap: clamp(18px, 5vw, 80px);
+  font-size: clamp(13px, 1.1vw, 16px);
+  white-space: nowrap;
 }
 
-.pageNav p {
+.pageNav a {
   color: lightgray;
   transition: color 0.4s ease;
 }
 
-.pageNav p:hover {
+.pageNav a:hover {
   color: black;
 }
 
 .supportNav {
   background-color: black;
   border-radius: 8px;
+  white-space: nowrap;
 }
 
-.supportNav p {
+.supportNav a {
+  display: inline-block;
   color: white;
+  font-size: clamp(13px, 1.1vw, 16px);
   padding: 8px 12px;
 }
 
 .selectPage {
   color: black !important;
+}
+
+/* 한 줄에 다 들어가지 않는 폭에서는 페이지 링크를 아랫줄로 내린다 */
+@media (max-width: 720px) {
+  .container {
+    flex-wrap: wrap;
+    row-gap: 12px;
+    padding: 14px var(--page-x);
+  }
+
+  .homeNav {
+    order: 1;
+  }
+
+  .supportNav {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .pageNav {
+    order: 3;
+    width: 100%;
+    gap: 0;
+    justify-content: space-between;
+  }
 }

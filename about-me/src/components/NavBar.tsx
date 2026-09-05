@@ -1,71 +1,49 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "./NavBar.module.css";
 
+const PAGES = [
+  { href: "/project", label: "PROJECT" },
+  { href: "/blog", label: "BLOG" },
+  { href: "/certified", label: "CERTIFIED" },
+];
+
+const GITHUB_URL = "https://github.com/Juyear009";
+const CONTACT_URL =
+  "https://mail.google.com/mail/?view=cm&fs=1&to=githubbruny@gmail.com&su=문의하기";
+
 export default function NavBar() {
-  const [section, setSection] = useState<string>("");
-  const router = useRouter();
-
-  const routerPage = (page: string) => {
-    router.push(`/${page}`);
-    setSection(page);
-  };
-
-  const prefetchPage = (page: string) => {
-    router.prefetch(`/${page}`);
-  };
-
-  useEffect(() => {
-    console.log(section);
-  }, [section]);
+  const pathname = usePathname();
 
   return (
     <div className={styles.container}>
       <div className={styles.homeNav}>
-        <p onClick={() => routerPage("")}>ABOUT</p>
+        {/* Link는 화면에 보이는 순간 해당 경로를 미리 받아둔다 */}
+        <Link href="/" prefetch>
+          ABOUT
+        </Link>
       </div>
       <div className={styles.pageNav}>
-        <p
-          className={`${section === "project" ? styles.selectPage : ""}`}
-          onMouseEnter={() => prefetchPage("project")}
-          onClick={() => routerPage("project")}
-        >
-          PROJECT
-        </p>
-        <p
-          className={`${section === "blog" ? styles.selectPage : ""}`}
-          onMouseEnter={() => prefetchPage("blog")}
-          onClick={() => routerPage("blog")}
-        >
-          BLOG
-        </p>
-        <p
-          className={`${section === "certified" ? styles.selectPage : ""}`}
-          onMouseEnter={() => prefetchPage("certified")}
-          onClick={() => routerPage("certified")}
-        >
-          CERTIFIED
-        </p>
-        <p
-          className={`${section === "github" ? styles.selectPage : ""}`}
-          onClick={() => router.push("https://github.com/Juyear009")}
-        >
+        {PAGES.map((page) => (
+          <Link
+            key={page.href}
+            href={page.href}
+            prefetch
+            className={pathname === page.href ? styles.selectPage : ""}
+          >
+            {page.label}
+          </Link>
+        ))}
+        <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
           GITHUB
-        </p>
+        </a>
       </div>
       <div className={styles.supportNav}>
-        <p
-          onClick={() => {
-            window.open(
-              "https://mail.google.com/mail/?view=cm&fs=1&to=githubbruny@gmail.com&su=문의하기",
-              "_blank",
-            );
-          }}
-        >
+        <a href={CONTACT_URL} target="_blank" rel="noopener noreferrer">
           문의하기
-        </p>
+        </a>
       </div>
     </div>
   );

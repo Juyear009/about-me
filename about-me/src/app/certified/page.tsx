@@ -1,69 +1,87 @@
-import styles from "./page.module.css";
 import Image from "next/image";
+import styles from "./page.module.css";
+import credentials, { type Credential } from "@/data/certificates";
+
+const SECTIONS = [
+  { kind: "certification", label: "CERTIFICATION", caption: "자격증" },
+  { kind: "award", label: "AWARD", caption: "수상" },
+] as const;
+
+function CredentialCard({
+  credential,
+  index,
+}: {
+  credential: Credential;
+  index: number;
+}) {
+  return (
+    <article
+      className={styles.card}
+      style={{ animationDelay: `${index * 0.08}s` }}
+    >
+      <div className={styles.cardTop}>
+        <div className={styles.logoWrapper}>
+          <Image
+            src={credential.logo}
+            width={42}
+            height={42}
+            alt={`${credential.issuer} 로고`}
+          />
+        </div>
+        <div className={styles.medal} aria-hidden="true" />
+      </div>
+
+      <p className={styles.cardName}>{credential.name}</p>
+      {credential.note && <p className={styles.cardNote}>{credential.note}</p>}
+
+      <div className={styles.cardMeta}>
+        <p className={styles.metaLabel}>ISSUER</p>
+        <p className={`${styles.metaLabel} ${styles.metaRight}`}>DATE</p>
+        <p className={styles.metaValue}>{credential.issuer}</p>
+        <p className={`${styles.metaValue} ${styles.metaRight}`}>
+          {credential.date}
+        </p>
+      </div>
+    </article>
+  );
+}
 
 export default function Page() {
   return (
     <div className={styles.page}>
       <div className={styles.titleSection}>
         <p className={styles.title}>경험을 넘어 자격으로.</p>
-        <p className={styles.des}>JUYEAR가 취득한 자격증을 확인해보세요.</p>
+        <p className={styles.des}>
+          JUYEAR가 취득한 자격증과 수상 이력을 확인해보세요.
+        </p>
       </div>
-      <div className={styles.certifications}>
-        <div className={styles.certificate}>
-          <div className={styles.certificateTop}>
-            <div className={styles.logoWrapper}>
-              <Image
-                src={"/python_logo.png"}
-                width={40}
-                height={40}
-                alt="로고 사진"
-              />
+
+      {SECTIONS.map((section) => {
+        const items = credentials.filter((c) => c.kind === section.kind);
+        if (items.length === 0) return null;
+
+        return (
+          <section key={section.kind} className={styles.section}>
+            <div className={styles.sectionHead}>
+              <span className={styles.sectionLabel}>{section.label}</span>
+              <span className={styles.sectionCaption}>{section.caption}</span>
+              <span className={styles.sectionRule} />
+              <span className={styles.sectionCount}>
+                {String(items.length).padStart(2, "0")}
+              </span>
             </div>
-            <p className={styles.certificateTitle}>CERTIFICATE</p>
-          </div>
-          <hr />
-          <p className={styles.certificateName}>COSICAL 5등</p>
-          <p className={styles.certificateDes}>2025.01.18</p>
-          <p className={styles.certificateDes}>코리아IT아카데미</p>
-          <div className={styles.medalWrapper}></div>
-        </div>
-        <div className={styles.certificate}>
-          <div className={styles.certificateTop}>
-            <div className={styles.logoWrapper}>
-              <Image
-                src={"/python_logo.png"}
-                width={40}
-                height={40}
-                alt="로고 사진"
-              />
+            <div className={styles.cards}>
+              {items.map((credential, index) => (
+                <CredentialCard
+                  key={credential.name}
+                  credential={credential}
+                  index={index}
+                />
+              ))}
             </div>
-            <p className={styles.certificateTitle}>CERTIFICATE</p>
-          </div>
-          <hr />
-          <p className={styles.certificateName}>COSPRO 1급</p>
-          <p className={styles.certificateDes}>2021.11.28</p>
-          <p className={styles.certificateDes}>YBM IT</p>
-          <div className={styles.medalWrapper}></div>
-        </div>
-        <div className={styles.certificate}>
-          <div className={styles.certificateTop}>
-            <div className={styles.logoWrapper}>
-              <Image
-                src={"/C_logo.png"}
-                width={40}
-                height={40}
-                alt="로고 사진"
-              />
-            </div>
-            <p className={styles.certificateTitle}>CERTIFICATE</p>
-          </div>
-          <hr />
-          <p className={styles.certificateName}>COSPRO 2급</p>
-          <p className={styles.certificateDes}>2020.02.16</p>
-          <p className={styles.certificateDes}>YBM IT</p>
-          <div className={styles.medalWrapper}></div>
-        </div>
-      </div>
+          </section>
+        );
+      })}
     </div>
   );
 }
