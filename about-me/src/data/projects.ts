@@ -141,10 +141,10 @@ const projectDetails = {
       "Jest Unit/E2E 테스트와 GitHub Actions CI로 테스트 실패 시 merge 차단",
     ],
     achievement: [
-      "기획부터 설계, 개발, 인프라까지 1인 풀스택으로 약 3개월간 35개 PR, 200여 개 커밋 진행",
-      "AWS VPC Public/Private Subnet 분리로 AI 서버를 외부에서 격리한 인프라 구축",
-      "설계 과정의 고민과 의사결정을 블로그 연재(SYNAPSE #1~#6)로 기록",
-      "이벤트 기반 아키텍처, GraphRAG, 테스트 자동화 등 서비스 설계 역량 확보",
+      "Redis Streams 기반 이벤트 드리븐 아키텍처로 AI·메인 서버 간 순환 의존 제거 -> 메시지 영속화로 장애 복구 후 재처리 가능",
+      "벡터 검색 + 1-hop 그래프 확장 GraphRAG 파이프라인 구축 -> SSE로 탐색 결과를 실시간 전달",
+      "Jest Unit/E2E 테스트와 GitHub Actions CI 구축 -> 테스트 실패 시 main/dev 머지 차단",
+      "AWS VPC Public/Private Subnet 분리로 AI 서버 격리, Nginx TLS 종단과 Secrets Manager로 보안 강화",
     ],
   },
 };
