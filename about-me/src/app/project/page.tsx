@@ -5,7 +5,7 @@ import ProjectCard from "@/components/ProjectCard";
 export const metadata: Metadata = {
   title: "Project",
   description:
-    "SANGMYUNG AI, DISMU, HARU AI, TRAIVEL. 문제 정의부터 해결 방식과 성과까지 정리한 JUYEAR의 프로젝트입니다.",
+    "EAR, SYNAPSE, SANGMYUNG AI, DISMU, HARU AI, TRAIVEL. 문제 정의부터 해결 방식과 성과까지 정리한 JUYEAR의 프로젝트입니다.",
   alternates: { canonical: "/project" },
 };
 
@@ -15,6 +15,41 @@ export default function Page() {
       <div className={styles.titleSection}>
         <p className={styles.title}>기술이 아닌 가치를 만들자.</p>
         <p className={styles.des}>JUYEAR의 프로젝트를 구경해보세요.</p>
+      </div>
+      <div className={styles.projects}>
+        <ProjectCard
+          projectTitle="EAR"
+          projectDes="출근길에 열면, 오늘 들을 게 준비되어 있어요. 매일 아침 도착하는
+            AI 팟캐스트!"
+          skillTag={[
+            "AI",
+            "JS/TS",
+            "PYTHON",
+            "REACT NATIVE",
+            "NEXT",
+            "NEST",
+            "FAST API",
+            "SQL",
+            "AWS",
+          ]}
+          imgSrc="ear_3.png"
+        />
+        <ProjectCard
+          projectTitle="SYNAPSE"
+          projectDes="입력만 하세요, 연결은 AI가 도와줍니다. 생각을 이어주는 AI 지식
+            그래프 노트!"
+          skillTag={[
+            "AI",
+            "JS/TS",
+            "PYTHON",
+            "NEXT",
+            "NEST",
+            "FAST API",
+            "SQL",
+            "REDIS",
+          ]}
+          imgSrc="synapse_3.png"
+        />
       </div>
       <div className={styles.projects}>
         <ProjectCard
