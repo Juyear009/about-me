@@ -30,10 +30,3 @@
   color: rgb(184, 183, 183);
   word-break: keep-all;
 }
-
-.projects {
-  margin-top: clamp(24px, 3vw, 30px);
-  display: flex;
-  gap: clamp(20px, 2.8vw, 35px);
-  flex-wrap: wrap;
-}
