@@ -141,10 +141,10 @@ const projectDetails = {
       "Jest Unit/E2E 테스트와 GitHub Actions CI로 테스트 실패 시 merge 차단",
     ],
     achievement: [
-      "Redis Streams 기반 이벤트 드리븐 아키텍처로 AI·메인 서버 간 순환 의존 제거 -> 메시지 영속화로 장애 복구 후 재처리 가능",
-      "벡터 검색 + 1-hop 그래프 확장 GraphRAG 파이프라인 구축 -> SSE로 탐색 결과를 실시간 전달",
-      "Jest Unit/E2E 테스트와 GitHub Actions CI 구축 -> 테스트 실패 시 main/dev 머지 차단",
-      "AWS VPC Public/Private Subnet 분리로 AI 서버 격리, Nginx TLS 종단과 Secrets Manager로 보안 강화",
+      "Redis Streams 기반 이벤트 드리븐 구조로 서버 간 의존성 분리",
+      "GraphRAG 파이프라인 구축 및 SSE 기반 실시간 그래프 전달",
+      "Jest 테스트 + GitHub Actions CI로 머지 전 자동 검증",
+      "AWS Private Subnet으로 AI 서버 격리한 인프라 직접 구축",
     ],
   },
 };
