@@ -47,6 +47,28 @@
   display: block;
   margin: -3px 0 0 -3px;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+  animation: pointer-glitch 3.6s steps(1) infinite;
+}
+
+@keyframes pointer-glitch {
+  0%,
+  91%,
+  100% {
+    translate: 0 0;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+  }
+  92% {
+    translate: -2px 0;
+    filter: drop-shadow(2px 0 0 rgba(0, 240, 255, 0.85)) drop-shadow(-2px 0 0 rgba(236, 73, 49, 0.85));
+  }
+  94% {
+    translate: 2px 1px;
+    filter: drop-shadow(-2px 0 0 rgba(0, 240, 255, 0.85)) drop-shadow(2px 0 0 rgba(236, 73, 49, 0.85));
+  }
+  96% {
+    translate: -1px 0;
+    filter: drop-shadow(1px 0 0 rgba(0, 240, 255, 0.6));
+  }
 }
 
 .dock .bob {
@@ -70,6 +92,9 @@
   width: 3px;
   border-radius: 2px;
   background-color: var(--accent);
+  box-shadow:
+    0 0 6px rgba(236, 73, 49, 0.8),
+    1px 0 0 rgba(0, 240, 255, 0.6);
   opacity: 0;
 }
 
@@ -80,6 +105,47 @@
   width: 0;
   height: 0;
   border: 1.5px solid var(--accent);
+  opacity: 0;
+  animation: frame-glitch 2s steps(1) infinite;
+}
+
+@keyframes frame-glitch {
+  0%,
+  84%,
+  100% {
+    translate: 0 0;
+    box-shadow: none;
+  }
+  85% {
+    translate: 3px 0;
+    box-shadow:
+      -3px 0 0 rgba(0, 240, 255, 0.7),
+      3px 0 0 rgba(236, 73, 49, 0.5);
+  }
+  88% {
+    translate: -2px 1px;
+    box-shadow:
+      3px 0 0 rgba(0, 240, 255, 0.7),
+      -2px 0 0 rgba(236, 73, 49, 0.5);
+  }
+  91% {
+    translate: 1px 0;
+    box-shadow: -1px 0 0 rgba(0, 240, 255, 0.5);
+  }
+}
+
+.spark {
+  position: absolute;
+  left: -14px;
+  top: -14px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(236, 73, 49, 0.9);
+  box-shadow:
+    0 0 8px rgba(236, 73, 49, 0.6),
+    inset 0 0 6px rgba(0, 240, 255, 0.5),
+    2px 0 0 rgba(0, 240, 255, 0.5);
   opacity: 0;
 }
 

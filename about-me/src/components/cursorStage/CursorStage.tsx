@@ -26,9 +26,15 @@ type Ctx = {
 type Section = { name: string; roots: HTMLElement[]; els: HTMLElement[] };
 type Running = { section: Section; controls: Controls; ctx: Ctx; snap: number; used: number[] };
 
-function Pointer() {
+function Pointer({ index }: { index: number }) {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" className={styles.svg}>
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      className={styles.svg}
+      style={{ animationDelay: `${-index * 0.83}s`, animationDuration: `${3.2 + (index % 3) * 0.9}s` }}
+    >
       <path
         d="M4.4 3.1C3.6 2.6 2.7 3.2 2.9 4.1L6.6 20.2C6.85 21.2 8.2 21.35 8.65 20.4L11.3 14.7C11.45 14.35 11.8 14.1 12.2 14.05L18.4 13.5C19.4 13.4 19.75 12.1 18.9 11.6Z"
         fill="#111"
@@ -134,10 +140,34 @@ export default function CursorStage() {
       add(ctx, cursors[i], { x: [pos[i].x, x], y: [pos[i].y, y] }, at, duration, ease);
       pos[i] = { x, y };
     };
-    const press = (ctx: Ctx, i: number, at: number) =>
+    const spark = (ctx: Ctx, i: number, at: number) => {
+      const el = helper(ctx, styles.spark);
+      add(ctx, el, { x: [pos[i].x, pos[i].x], y: [pos[i].y, pos[i].y] }, at, 0.01, "linear");
+      add(ctx, el, { scale: [0.2, 1.7], opacity: [0, 1, 0] }, at, 0.4, "easeOut");
+    };
+    const burst = (ctx: Ctx, el: HTMLElement, at: number) => {
+      const trigger = motionValue(0);
+      let fired = false;
+      ctx.disposers.push(
+        trigger.on("change", (v) => {
+          if (v < 1 || fired) return;
+          fired = true;
+          el.classList.remove("cursor-glitch");
+          void el.offsetWidth;
+          el.classList.add("cursor-glitch");
+          window.setTimeout(() => el.classList.remove("cursor-glitch"), 380);
+        }),
+      );
+      ctx.seq.push([trigger, [0, 1], { at, duration: 0.01, ease: "linear" }]);
+    };
+    const press = (ctx: Ctx, i: number, at: number) => {
       add(ctx, presses[i], { scale: [1, 0.8, 1] }, at, 0.16, "linear");
-    const down = (ctx: Ctx, i: number, at: number) =>
+      spark(ctx, i, at + 0.04);
+    };
+    const down = (ctx: Ctx, i: number, at: number) => {
       add(ctx, presses[i], { scale: [1, 0.82] }, at, 0.08, "linear");
+      spark(ctx, i, at + 0.02);
+    };
     const up = (ctx: Ctx, i: number, at: number) =>
       add(ctx, presses[i], { scale: [0.82, 1] }, at, 0.08, "linear");
     const helper = (ctx: Ctx, className: string) => {
@@ -148,6 +178,8 @@ export default function CursorStage() {
     };
     const frame = (ctx: Ctx) => {
       const el = helper(ctx, styles.frame);
+      el.style.animationDuration = `${1.4 + Math.random() * 1.2}s`;
+      el.style.animationDelay = `${-Math.random() * 2}s`;
       for (let k = 0; k < 4; k++) el.appendChild(document.createElement("span"));
       return el;
     };
@@ -241,6 +273,7 @@ export default function CursorStage() {
       }
       const done = start + duration;
       add(ctx, caret, { opacity: [1, 0, 1, 0] }, done + 0.05, 0.6, "linear");
+      burst(ctx, el, done + 0.02);
       return { done: done + 0.2, free: done + 0.1 };
     };
 
@@ -270,6 +303,7 @@ export default function CursorStage() {
       move(ctx, i, b.left + b.width * s, b.top + b.height * s, at + 0.55, 0.6);
       up(ctx, i, at + 1.17);
       add(ctx, f, { backgroundColor: CLEAR }, at + 1.15, 0.3, "linear");
+      burst(ctx, el, at + 1.15);
       if (!grow) {
         hideFrame(ctx, f, at + 1.3);
         return { done: at + 1.3, free: at + 1.25 };
@@ -279,6 +313,7 @@ export default function CursorStage() {
       add(ctx, f, { width: b.width, height: b.height }, at + 1.48, 0.6);
       move(ctx, i, b.right, b.bottom, at + 1.48, 0.6);
       up(ctx, i, at + 2.1);
+      burst(ctx, el, at + 2.1);
       hideFrame(ctx, f, at + 2.2);
       return { done: at + 2.15, free: at + 2.15 };
     };
@@ -292,6 +327,7 @@ export default function CursorStage() {
       press(ctx, i, at + 0.6);
       add(ctx, el, { opacity: [0, 1] }, at + 0.7, 0.25, "linear");
       add(ctx, el, { scale: [0.55, 1] }, at + 0.7, 0.55, POP);
+      burst(ctx, el, at + 0.72);
       move(ctx, i, cx + 26, cy + 30, at + 0.8, 0.5);
       return { done: at + 1.25, free: at + 0.9 };
     };
@@ -321,6 +357,7 @@ export default function CursorStage() {
       up(ctx, i, at + 1.13);
       add(ctx, ghost, { opacity: 0 }, at + 1.15, 0.3, "linear");
       add(ctx, el, { opacity: [0, 1] }, at + 1.15, 0.3, "linear");
+      burst(ctx, el, at + 1.2);
       hideFrame(ctx, f, at + 1.3);
       return { done: at + 1.45, free: at + 1.2 };
     };
@@ -506,6 +543,7 @@ export default function CursorStage() {
         }),
       );
       ctx.seq.push([go, [0, 1], { at: t3 + 0.44, duration: 0.01, ease: "linear" }]);
+      burst(ctx, root, t3 + 0.44);
       ctx.touched.push(...tracks);
       ctx.disposers.push(() =>
         tracks.forEach((t) => {
@@ -594,6 +632,7 @@ export default function CursorStage() {
       add(ctx, caret, { opacity: [0, 1] }, 0.7, 0.01, "linear");
       const typed1 = type(chars1, 0.78, 0.085, 0);
       add(ctx, caret, { opacity: 0 }, typed1 + 0.12, 0.01, "linear");
+      burst(ctx, title1, typed1 + 0.05);
       move(ctx, 0, t1.right + 36, t1.top - 24, typed1 + 0.1, 0.6);
 
       const mid = { x: (t1.left + t1.right) / 2, y: (t1.top + t1.bottom) / 2 };
@@ -620,6 +659,7 @@ export default function CursorStage() {
       move(ctx, 1, t2.left + 10, t2.top + (t2.bottom - t2.top) * 0.85, 2.5, 0.16);
       const typed2 = type(chars2, 2.68, 0.08, 1);
       add(ctx, caret, { opacity: 0 }, typed2 + 0.12, 0.01, "linear");
+      burst(ctx, title2, typed2 + 0.05);
 
       const s0 = 0.72;
       const w = rp.width;
@@ -644,6 +684,7 @@ export default function CursorStage() {
       add(ctx, frameProfile, { width: w, height: h }, 1.98, 0.6);
       move(ctx, 3, rp.right, rp.bottom, 1.98, 0.6);
       up(ctx, 3, 2.62);
+      burst(ctx, profile, 2.62);
       hideFrame(ctx, frameProfile, 2.85);
       move(ctx, 3, rp.right + 44, rp.top + 30, 2.75, 0.6);
 
@@ -1006,7 +1047,7 @@ export default function CursorStage() {
           <div key={i} className={styles.cursor} data-cursor>
             <div className={styles.bob} style={{ animationDelay: `${-i * 0.37}s` }}>
               <div data-press>
-                <Pointer />
+                <Pointer index={i} />
               </div>
             </div>
           </div>
