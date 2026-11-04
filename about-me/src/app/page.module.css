@@ -630,3 +630,82 @@
     flex-direction: column;
   }
 }
+
+.HeroSection,
+.profileSummary,
+.skillSection,
+.timelineSection,
+.mottoSection,
+.footerSection {
+  position: relative;
+}
+
+.hudLabel {
+  position: absolute;
+  top: -34px;
+  left: 0;
+  display: flex;
+  gap: 12px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: #a9a7a2;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.hudLabel span:first-child {
+  color: var(--accent);
+}
+
+.hudLabelFooter {
+  top: 16px;
+  left: auto;
+  right: var(--page-x);
+  color: #6f6d69;
+}
+
+.hudCorners {
+  position: relative;
+}
+
+.hudCorners::after {
+  --c: rgba(0, 0, 0, 0.32);
+  --l: 14px;
+  content: "";
+  position: absolute;
+  inset: -12px;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--c), var(--c)) top left / var(--l) 1.5px no-repeat,
+    linear-gradient(var(--c), var(--c)) top left / 1.5px var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / var(--l) 1.5px no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / 1.5px var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / var(--l) 1.5px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / 1.5px var(--l) no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / var(--l) 1.5px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / 1.5px var(--l) no-repeat;
+  transition: inset 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hudCorners:hover::after {
+  --c: var(--accent);
+  inset: -6px;
+}
+
+.hudCornersInside::after {
+  --c: rgba(255, 255, 255, 0.85);
+  inset: 12px;
+}
+
+.hudCornersInside:hover::after {
+  --c: var(--accent);
+  inset: 18px;
+}
+
+@media (max-width: 768px) {
+  .hudLabel {
+    display: none;
+  }
+}

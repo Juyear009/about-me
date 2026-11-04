@@ -123,3 +123,9 @@ img {
     opacity: 1;
   }
 }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .glitch-hover.glitching {
+    animation: cursor-glitch 0.36s steps(1) 1;
+  }
+}

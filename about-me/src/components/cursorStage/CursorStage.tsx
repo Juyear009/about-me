@@ -3,6 +3,7 @@
 import { animate, motionValue, type AnimationSequence } from "framer-motion";
 import { useEffect, useRef } from "react";
 import styles from "./CursorStage.module.css";
+import GlitchHover from "./GlitchHover";
 
 const COUNT = 8;
 const QUERY =
@@ -10,6 +11,7 @@ const QUERY =
 type Ease = [number, number, number, number] | "linear" | "easeOut";
 const EASE: Ease = [0.25, 1, 0.5, 1];
 const POP: Ease = [0.34, 1.56, 0.64, 1];
+const GLIDE: Ease = [0.45, 0.05, 0.25, 1];
 const TINT = "rgba(236, 73, 49, 0.08)";
 const CLEAR = "rgba(236, 73, 49, 0)";
 const STAGGER = 0.22;
@@ -131,13 +133,18 @@ export default function CursorStage() {
       duration = 0.45,
       ease: Ease = EASE,
     ) => {
+      let start = at;
       if (!used.has(i)) {
         settle.get(i)?.stop();
         settle.delete(i);
         syncStage(i);
         used.add(i);
+        const far = Math.hypot(x - pos[i].x, y - pos[i].y);
+        start = Math.max(0, at - Math.min(0.55, far / 1800));
       }
-      add(ctx, cursors[i], { x: [pos[i].x, x], y: [pos[i].y, y] }, at, duration, ease);
+      const distance = Math.hypot(x - pos[i].x, y - pos[i].y);
+      if (ease === EASE && distance > 320) ease = GLIDE;
+      add(ctx, cursors[i], { x: [pos[i].x, x], y: [pos[i].y, y] }, start, duration + (at - start), ease);
       pos[i] = { x, y };
     };
     const spark = (ctx: Ctx, i: number, at: number) => {
@@ -366,7 +373,7 @@ export default function CursorStage() {
       const free = cursors.map(() => 0);
       const doneOf = new Map<HTMLElement, number>();
       const firstOf = new Map<string, HTMLElement>();
-      let base = 0.05 - STAGGER;
+      let base = 0.55 - STAGGER;
       els.forEach((el) => {
         const kind = el.dataset.draw!;
         const group = el.dataset.group;
@@ -414,7 +421,7 @@ export default function CursorStage() {
         t.style.animationPlayState = "paused";
       });
       spans.forEach((el) => hide(ctx, el));
-      const band = boxAction(ctx, root, 0, 0.05, false);
+      const band = boxAction(ctx, root, 0, 0.5, false);
       markDrawn([root]);
 
       const vw = window.innerWidth;
@@ -1053,6 +1060,7 @@ export default function CursorStage() {
           </div>
         ))}
       </div>
+      <GlitchHover />
       <canvas ref={trailRef} className={styles.trail} aria-hidden="true" />
       <div ref={dockRef} className={styles.dock} aria-hidden="true" />
     </>

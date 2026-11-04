@@ -39,7 +39,10 @@ function SplitText({ text }: { text: string }) {
 
 function TimelineImage({ src }: { src: string }) {
   return (
-    <div className={styles.timelineImg} data-draw="grow">
+    <div
+      className={`${styles.timelineImg} ${styles.hudCorners} ${styles.hudCornersInside}`}
+      data-draw="grow"
+    >
       <Image
         height={250}
         width={400}
@@ -243,6 +246,11 @@ export default function Home() {
       {raining && <IconRain />}
       <CursorStage />
       <div className={styles.HeroSection} id="hero" data-scene="hero">
+        <p className={styles.hudLabel} aria-hidden="true">
+          <span>[01]</span>
+          <span>HERO</span>
+          <span>JUYEAR.DEV</span>
+        </p>
         <div className={styles.titleSection}>
           <p className={styles.mainTitle1} data-draw="title1">
             <SplitText text="대학생 개발자" />
@@ -252,7 +260,7 @@ export default function Home() {
           </p>
         </div>
         <div
-          className={styles.profileTilt}
+          className={`${styles.profileTilt} ${styles.hudCorners}`}
           data-draw="profile"
           onMouseMove={handleTilt}
           onMouseLeave={resetTilt}
@@ -297,9 +305,14 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.profileSummary} id="profile" data-scene="profile">
+        <p className={styles.hudLabel} aria-hidden="true">
+          <span>[02]</span>
+          <span>PROFILE</span>
+          <span>37.20N 127.07E</span>
+        </p>
         <FadeIn>
           <div className={styles.profileSummaryHeading}>
-            <p className={styles.profileSummaryTitle} data-draw="type">
+            <p className={`${styles.profileSummaryTitle} glitch-hover`} data-draw="type">
               FULLSTACK <br />
               DEVELOPER
               <br />
@@ -349,6 +362,11 @@ export default function Home() {
         </FadeIn>
       </div>
       <div className={styles.skillSection} id="skills" data-scene="skills">
+        <p className={styles.hudLabel} aria-hidden="true">
+          <span>[03]</span>
+          <span>SKILLS</span>
+          <span>STACK.LIST</span>
+        </p>
         <FadeIn>
           <div className={styles.skillSectionHeading}>
             <Image
@@ -358,7 +376,7 @@ export default function Home() {
               alt="빨간 아이콘"
               data-draw="pop"
             />
-            <p className={styles.skillSectionTitle} data-draw="type">SKILLS</p>
+            <p className={`${styles.skillSectionTitle} glitch-hover`} data-draw="type">SKILLS</p>
             <p className={styles.skillSectionDes} data-draw="type">
               현재 기술 스택과 배우고 있는 기술을 정리해봤어요.
             </p>
@@ -404,6 +422,11 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.timelineSection} id="timeline">
+        <p className={styles.hudLabel} aria-hidden="true">
+          <span>[04]</span>
+          <span>TIMELINE</span>
+          <span>2018 — 2026</span>
+        </p>
         <FadeIn>
           <div className={styles.timelineSectionHeading} data-scene="timeline-0">
             <Image
@@ -413,7 +436,7 @@ export default function Home() {
               alt="빨간 아이콘"
               data-draw="pop"
             />
-            <p className={styles.skillSectionTitle} data-draw="type">TIMELINE</p>
+            <p className={`${styles.skillSectionTitle} glitch-hover`} data-draw="type">TIMELINE</p>
             <p className={styles.skillSectionDes} data-draw="type">
               주요 활동을 타임라인 형식으로 정리해봤어요.
             </p>
@@ -446,6 +469,11 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.mottoSection} id="motto">
+        <p className={styles.hudLabel} aria-hidden="true">
+          <span>[05]</span>
+          <span>MOTTO</span>
+          <span>MOTTO.TXT</span>
+        </p>
         <FadeIn>
           <div className={styles.mottoSectionHeading} data-scene="motto">
             <Image
@@ -455,7 +483,7 @@ export default function Home() {
               alt="빨간 아이콘"
               data-draw="pop"
             />
-            <p className={styles.skillSectionTitle} data-draw="type">MOTTO</p>
+            <p className={`${styles.skillSectionTitle} glitch-hover`} data-draw="type">MOTTO</p>
             <p className={styles.skillSectionDes} data-draw="type">제 인생 모토를 적어봤어요.</p>
             <p className={`${styles.motto} ${myfont.className}`} data-draw="type">
               <span className={styles.redQuot}>&quot;</span> 항상 위를 보는
@@ -466,6 +494,11 @@ export default function Home() {
         </FadeIn>
       </div>
       <div className={styles.footerSection} data-scene="motto">
+        <p className={`${styles.hudLabel} ${styles.hudLabelFooter}`} aria-hidden="true">
+          <span>[06]</span>
+          <span>CONTACT</span>
+          <span>MAIL.OPEN</span>
+        </p>
         <div className={styles.footerDivide}>
           <Image
             className={styles.footerImage}
@@ -475,7 +508,7 @@ export default function Home() {
             width={60}
             alt="링크드인 로고"
           />
-          <p className={styles.footerTitle} data-draw="type">
+          <p className={`${styles.footerTitle} glitch-hover`} data-draw="type">
             Contact Me.
           </p>
         </div>
