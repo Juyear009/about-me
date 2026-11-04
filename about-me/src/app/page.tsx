@@ -9,6 +9,7 @@ import ConsoleGreeting from "@/components/ConsoleGreeting";
 import IconRain from "@/components/IconRain";
 import timeline from "@/data/timeline";
 import SectionNav from "@/components/SectionNav";
+import CursorStage from "@/components/cursorStage/CursorStage";
 import { myfont } from "./fonts";
 import { useRouter } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
@@ -38,7 +39,7 @@ function SplitText({ text }: { text: string }) {
 
 function TimelineImage({ src }: { src: string }) {
   return (
-    <div className={styles.timelineImg}>
+    <div className={styles.timelineImg} data-draw="grow">
       <Image
         height={250}
         width={400}
@@ -240,17 +241,19 @@ export default function Home() {
       <ConsoleGreeting />
       <SectionNav />
       {raining && <IconRain />}
-      <div className={styles.HeroSection} id="hero">
+      <CursorStage />
+      <div className={styles.HeroSection} id="hero" data-scene="hero">
         <div className={styles.titleSection}>
-          <p className={styles.mainTitle1}>
+          <p className={styles.mainTitle1} data-draw="title1">
             <SplitText text="대학생 개발자" />
           </p>
-          <p className={styles.mainTitle1}>
+          <p className={styles.mainTitle1} data-draw="title2">
             <SplitText text="JUYEAR" />
           </p>
         </div>
         <div
           className={styles.profileTilt}
+          data-draw="profile"
           onMouseMove={handleTilt}
           onMouseLeave={resetTilt}
           onClick={handleProfileClick}
@@ -270,12 +273,12 @@ export default function Home() {
             <span className={styles.profileBubble}>그만 누르세요 😵‍💫</span>
           )}
         </div>
-        <div className={styles.scrollHint} aria-hidden="true">
+        <div className={styles.scrollHint} aria-hidden="true" data-draw="hint">
           <span className={styles.scrollHintText}>SCROLL</span>
           <span className={styles.scrollLine} />
         </div>
       </div>
-      <div className={styles.keywordSection}>
+      <div className={styles.keywordSection} data-scene="keywords" data-draw="box">
         <div className={styles.trackLeft}>
           {codingWords.map((w, i) => (
             <span key={`a-${i}`}>{w}</span>
@@ -293,32 +296,32 @@ export default function Home() {
           ))}
         </div>
       </div>
-      <div className={styles.profileSummary} id="profile">
+      <div className={styles.profileSummary} id="profile" data-scene="profile">
         <FadeIn>
           <div className={styles.profileSummaryHeading}>
-            <p className={styles.profileSummaryTitle}>
+            <p className={styles.profileSummaryTitle} data-draw="type">
               FULLSTACK <br />
               DEVELOPER
               <br />
               AI RESEARCHER
             </p>
             <div>
-              <p className={styles.profileSummaryDes}>
+              <p className={styles.profileSummaryDes} data-draw="type">
                 저는 다가오는 기술에 빠르게 적응하며,
                 <br />
                 단순히 기술을 활용하는 개발자가 아닌 <br />
                 문제를 해결하는 개발자로 성장하고자 합니다.
               </p>
               <div className={styles.profileInfo}>
-                <div>
+                <div data-draw="box" data-group="info">
                   <p className={styles.profileInfoTitle}>GENDER</p>
                   <p className={styles.profileInfoDes}>남자</p>
                 </div>
-                <div>
+                <div data-draw="dup" data-group="info">
                   <p className={styles.profileInfoTitle}>EDUCATION</p>
                   <p className={styles.profileInfoDes}>대학교 재학</p>
                 </div>
-                <div>
+                <div data-draw="dup" data-group="info">
                   <p className={styles.profileInfoTitle}>YEAR</p>
                   <p className={styles.profileInfoDes}>20살</p>
                 </div>
@@ -328,24 +331,24 @@ export default function Home() {
         </FadeIn>
         <FadeIn>
           <div className={styles.profileSummaryBoxes}>
-            <div className={styles.profileSummaryBox1}>
+            <div className={styles.profileSummaryBox1} data-draw="box" data-group="sbox">
               <p className={styles.boxTitle}>DONGTAN</p>
               <p className={styles.boxDes}>LOCATION</p>
             </div>
-            <div className={styles.profileSummaryBox2}>
+            <div className={styles.profileSummaryBox2} data-draw="dup" data-group="sbox">
               <p className={styles.boxTitle}>
                 <CountUp to={7} suffix="+" />
               </p>
               <p className={styles.boxDes}>YEARS OF EXPERIENCE</p>
             </div>
-            <div className={styles.profileSummaryBox1}>
+            <div className={styles.profileSummaryBox1} data-draw="dup" data-group="sbox">
               <p className={styles.boxTitle}>2005.07.28</p>
               <p className={styles.boxDes}>DATE OF BIRTH</p>
             </div>
           </div>
         </FadeIn>
       </div>
-      <div className={styles.skillSection} id="skills">
+      <div className={styles.skillSection} id="skills" data-scene="skills">
         <FadeIn>
           <div className={styles.skillSectionHeading}>
             <Image
@@ -353,16 +356,17 @@ export default function Home() {
               width={50}
               height={50}
               alt="빨간 아이콘"
+              data-draw="pop"
             />
-            <p className={styles.skillSectionTitle}>SKILLS</p>
-            <p className={styles.skillSectionDes}>
+            <p className={styles.skillSectionTitle} data-draw="type">SKILLS</p>
+            <p className={styles.skillSectionDes} data-draw="type">
               현재 기술 스택과 배우고 있는 기술을 정리해봤어요.
             </p>
           </div>
         </FadeIn>
         <div className={styles.skillBoxes}>
           <FadeIn>
-            <div className={styles.skillBox}>
+            <div className={styles.skillBox} data-draw="box" data-group="skill">
               <span className={styles.label}>BACKEND</span>
               {backendSkills.map((skill) => (
                 <SkillIcon key={skill.name} skill={skill} />
@@ -370,7 +374,7 @@ export default function Home() {
             </div>
           </FadeIn>
           <FadeIn>
-            <div className={styles.skillBox}>
+            <div className={styles.skillBox} data-draw="dup" data-group="skill">
               <span className={styles.label}>FRONTEND</span>
               {frontendSkills.map((skill) => (
                 <SkillIcon key={skill.name} skill={skill} />
@@ -378,7 +382,7 @@ export default function Home() {
             </div>
           </FadeIn>
           <FadeIn>
-            <div className={styles.skillBox}>
+            <div className={styles.skillBox} data-draw="dup" data-group="skill">
               <span className={styles.label}>STUDY</span>
               {studySkills.map((skill) => (
                 <SkillIcon key={skill.name} skill={skill} />
@@ -388,6 +392,7 @@ export default function Home() {
           <FadeIn>
             <div
               className={`${styles.skillBox} ${styles.textBox}`}
+              data-draw="grow"
               onClick={handleOthersClick}
             >
               <span className={styles.label}>OTHERS</span>
@@ -400,29 +405,34 @@ export default function Home() {
       </div>
       <div className={styles.timelineSection} id="timeline">
         <FadeIn>
-          <div className={styles.timelineSectionHeading}>
+          <div className={styles.timelineSectionHeading} data-scene="timeline-0">
             <Image
               src={"/red_button.svg"}
               width={50}
               height={50}
               alt="빨간 아이콘"
+              data-draw="pop"
             />
-            <p className={styles.skillSectionTitle}>TIMELINE</p>
-            <p className={styles.skillSectionDes}>
+            <p className={styles.skillSectionTitle} data-draw="type">TIMELINE</p>
+            <p className={styles.skillSectionDes} data-draw="type">
               주요 활동을 타임라인 형식으로 정리해봤어요.
             </p>
           </div>
         </FadeIn>
         <div className={styles.timelineBody}>
-          {timeline.map((block) => (
+          {timeline.map((block, index) => (
             <FadeIn key={block.image}>
-              <div className={styles.timelineDivide}>
+              <div
+                className={styles.timelineDivide}
+                data-scene={`timeline-${Math.floor(index / 2)}`}
+              >
                 {block.imageFirst && <TimelineImage src={block.image} />}
-                <ul className={styles.timelineItems}>
+                <ul className={styles.timelineItems} data-draw="box">
                   {block.entries.map((entry) => (
                     <li
                       key={`${entry.date}-${entry.text}`}
                       className={styles.timelineItem}
+                      data-draw="type"
                     >
                       <span className={styles.timelineDate}>{entry.date}</span>
                       <p className={styles.timelineText}>{entry.text}</p>
@@ -437,16 +447,17 @@ export default function Home() {
       </div>
       <div className={styles.mottoSection} id="motto">
         <FadeIn>
-          <div className={styles.mottoSectionHeading}>
+          <div className={styles.mottoSectionHeading} data-scene="motto">
             <Image
               src={"/red_button.svg"}
               width={50}
               height={50}
               alt="빨간 아이콘"
+              data-draw="pop"
             />
-            <p className={styles.skillSectionTitle}>MOTTO</p>
-            <p className={styles.skillSectionDes}>제 인생 모토를 적어봤어요.</p>
-            <p className={`${styles.motto} ${myfont.className}`}>
+            <p className={styles.skillSectionTitle} data-draw="type">MOTTO</p>
+            <p className={styles.skillSectionDes} data-draw="type">제 인생 모토를 적어봤어요.</p>
+            <p className={`${styles.motto} ${myfont.className}`} data-draw="type">
               <span className={styles.redQuot}>&quot;</span> 항상 위를 보는
               사람은 절대 바닥에 있지 않는다.{" "}
               <span className={styles.redQuot}>&quot;</span>
@@ -454,19 +465,22 @@ export default function Home() {
           </div>
         </FadeIn>
       </div>
-      <div className={styles.footerSection}>
+      <div className={styles.footerSection} data-scene="motto">
         <div className={styles.footerDivide}>
           <Image
             className={styles.footerImage}
+            data-draw="pop"
             src={"/profile.png"}
             height={60}
             width={60}
             alt="링크드인 로고"
           />
-          <p className={styles.footerTitle}>Contact Me.</p>
+          <p className={styles.footerTitle} data-draw="type">
+            Contact Me.
+          </p>
         </div>
         <div className={styles.footerDivide}>
-          <div>
+          <div data-draw="type">
             <p className={styles.footerTitle}>© Made by JUYEAR</p>
             <a
               href="https://webflow.com/templates/html/moxa-portfolio-website-template?ps_partner_key=c3RldmViZW5qYW1pbnM2NjY1&ps_xid=mYzBdIG1FLNANI&gsxid=mYzBdIG1FLNANI&gspk=c3RldmViZW5qYW1pbnM2NjY1"
@@ -479,6 +493,8 @@ export default function Home() {
           <div className={styles.snsLinks}>
             <Image
               className={styles.snsLogo}
+              data-draw="pop"
+              data-group="sns"
               onClick={() =>
                 router.push(
                   "https://www.linkedin.com/in/junhyeon-park-549046347/",
@@ -491,6 +507,8 @@ export default function Home() {
             />
             <Image
               className={styles.snsLogo}
+              data-draw="dup"
+              data-group="sns"
               onClick={() =>
                 router.push("https://www.instagram.com/juyear_coding/?__pwa=1")
               }
@@ -501,6 +519,8 @@ export default function Home() {
             />
             <Image
               className={styles.snsLogo}
+              data-draw="dup"
+              data-group="sns"
               onClick={() => router.push("mailto:githubbruny@gmail.com")}
               src={"/sns_logos/gmail_logo.png"}
               height={50}

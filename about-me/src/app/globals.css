@@ -70,3 +70,25 @@ img {
     transform: none;
   }
 }
+
+@media (min-width: 1025px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-draw]:not([data-drawn]) {
+    opacity: 0;
+  }
+
+  html:not([data-cursors]) [data-draw]:not([data-drawn]) {
+    animation: draw-fallback 0s 5s forwards;
+  }
+
+  html[data-cursors] .fadeIn {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@keyframes draw-fallback {
+  to {
+    opacity: 1;
+  }
+}
