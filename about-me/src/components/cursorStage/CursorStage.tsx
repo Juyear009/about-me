@@ -456,15 +456,65 @@ export default function CursorStage() {
       hideFrame(ctx, f, t0 + 0.55);
 
       const t1 = t0 + 0.75;
-      move(ctx, 1, fb.left + fb.width / 2, fb.top + fb.height / 2, t1 - 0.2, 0.2);
-      down(ctx, 1, t1);
+      const pad = 6;
+      move(ctx, 1, fb.left + fb.width * 0.55, fb.top + fb.height * 0.6, t1 - 0.25, 0.25);
+      press(ctx, 1, t1);
+
       const copies = shown.slice(1).map((el) => ({ el, b: doc(el), g: pill(doc(el)) }));
-      copies.forEach(({ b, g }, k) => {
-        const at = t1 + 0.08 + k * 0.025;
-        add(ctx, g, { x: [fb.left, b.left], y: [fb.top, b.top], opacity: [0, 1, 1] }, at, 0.55);
+      const row1 = copies.filter(({ el }) => tracks[0].contains(el));
+      const row2 = copies.filter(({ el }) => tracks[1].contains(el));
+      const firstRow = [fb, ...row1.map(({ b }) => b)];
+      const rowBox = {
+        left: Math.max(4, Math.min(...firstRow.map((b) => b.left)) - pad),
+        top: Math.min(...firstRow.map((b) => b.top)) - pad,
+        right: Math.min(vw - o.x - 28, Math.max(...firstRow.map((b) => b.right)) + pad),
+        bottom: Math.max(...firstRow.map((b) => b.bottom)) + pad,
+      };
+      const key = (at: number, x: number, y: number) => {
+        const el = helper(ctx, styles.key);
+        el.textContent = "⌘ D";
+        add(ctx, el, { x: [x - 64, x - 64], y: [y + 16, y + 16] }, at, 0.01, "linear");
+        add(ctx, el, { opacity: [0, 1, 1, 0], scale: [0.7, 1, 1, 0.95] }, at, 0.55, "linear");
+      };
+      const selected = frame(ctx);
+      const startW = fb.right + pad - rowBox.left;
+      const startH = rowBox.bottom - rowBox.top;
+      add(ctx, selected, { x: [rowBox.left, rowBox.left], y: [rowBox.top, rowBox.top], width: [startW, startW], height: [startH, startH], backgroundColor: [CLEAR, CLEAR] }, t1 + 0.08, 0.01, "linear");
+      showFrame(ctx, selected, t1 + 0.08);
+
+      const grab = t1 + 0.55;
+      move(ctx, 1, rowBox.left + startW, rowBox.bottom, grab - 0.3, 0.3);
+      down(ctx, 1, grab);
+      const stretch = 0.85;
+      add(ctx, selected, { backgroundColor: TINT }, grab + 0.04, 0.12, "linear");
+      add(ctx, selected, { width: rowBox.right - rowBox.left }, grab + 0.04, stretch, GLIDE);
+      move(ctx, 1, rowBox.right, rowBox.bottom, grab + 0.04, stretch, GLIDE);
+      up(ctx, 1, grab + stretch + 0.06);
+      add(ctx, selected, { backgroundColor: CLEAR }, grab + stretch + 0.1, 0.2, "linear");
+
+      const k1 = grab + stretch + 0.3;
+      key(k1, rowBox.right, rowBox.bottom);
+      press(ctx, 1, k1 + 0.05);
+      row1.forEach(({ b, g }, k) => {
+        const at = k1 + 0.15 + k * 0.012;
+        add(ctx, g, { x: [b.left, b.left], y: [b.top, b.top], opacity: [0, 1] }, at, 0.1, "linear");
+        add(ctx, g, { scale: [0.85, 1] }, at, 0.25, POP);
       });
-      up(ctx, 1, t1 + 0.12);
-      const pasted = t1 + 0.08 + copies.length * 0.025 + 0.55;
+      burst(ctx, tracks[0], k1 + 0.2);
+
+      const lower = row2.length ? Math.min(...row2.map(({ b }) => b.top)) - fb.top : 0;
+      const k2 = k1 + 0.9;
+      key(k2, rowBox.right, rowBox.bottom);
+      press(ctx, 1, k2 + 0.05);
+      row2.forEach(({ b, g }, k) => {
+        const at = k2 + 0.15 + k * 0.012;
+        add(ctx, g, { x: [b.left, b.left], y: [b.top - lower, b.top], opacity: [0, 1] }, at, 0.32, GLIDE);
+      });
+      add(ctx, selected, { y: rowBox.top + lower }, k2 + 0.15, 0.32, GLIDE);
+      move(ctx, 1, rowBox.right, rowBox.bottom + lower, k2 + 0.15, 0.32, GLIDE);
+      burst(ctx, tracks[1], k2 + 0.4);
+      hideFrame(ctx, selected, k2 + 0.65);
+      const pasted = k2 + 0.6;
 
       const t2 = pasted + 0.05;
       spans
@@ -824,6 +874,7 @@ export default function CursorStage() {
     };
 
     const begin = (section: Section, snap: number) => {
+      stopFollow();
       used.clear();
       const isHero = section.name === "hero";
       const helpers = document.createElement("div");
@@ -969,6 +1020,95 @@ export default function CursorStage() {
     if (document.readyState === "complete") onLoad();
     else window.addEventListener("load", onLoad, { once: true });
     const fallback = window.setTimeout(start, 900);
+    let following = 0;
+    let followUntil = 0;
+    let lastStartle = 0;
+    const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const history: { x: number; y: number }[] = [];
+    const onMove = (e: MouseEvent) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+    const idle = () => !running && !snapping && cursors.every((_, i) => inDock[i]);
+    const dockIndex = (target: EventTarget | null) =>
+      cursors.findIndex((c) => c.contains(target as Node | null));
+
+    const startle = () => {
+      const now = performance.now();
+      if (following || now - lastStartle < 1200 || !idle()) return;
+      lastStartle = now;
+      cursors.forEach((c, i) => {
+        const spot = dockSpot(i);
+        const hop = 24 + Math.random() * 36;
+        const side = (Math.random() - 0.5) * 30;
+        settle.get(i)?.stop();
+        settle.set(
+          i,
+          animate(
+            c,
+            { x: [pos[i].x, spot.x + side, spot.x], y: [pos[i].y, spot.y - hop, spot.y] },
+            { duration: 0.6, ease: "easeOut", delay: i * 0.03 },
+          ),
+        );
+        pos[i] = spot;
+        c.classList.remove("cursor-glitch");
+        void c.offsetWidth;
+        c.classList.add("cursor-glitch");
+        window.setTimeout(() => c.classList.remove("cursor-glitch"), 400);
+      });
+    };
+
+    const stopFollow = () => {
+      if (!following) return;
+      cancelAnimationFrame(following);
+      following = 0;
+      dock.classList.remove(styles.following);
+      cursors.forEach((c, i) => {
+        if (!inDock[i]) return;
+        const r = c.getBoundingClientRect();
+        pos[i] = { x: r.left, y: r.top };
+      });
+    };
+    const followStep = () => {
+      history.push({ x: mouse.x, y: mouse.y });
+      if (history.length > 80) history.shift();
+      cursors.forEach((_, i) => {
+        const p = history[Math.max(0, history.length - 1 - (i + 1) * 6)];
+        place(i, p.x + 14, p.y + 16);
+      });
+      if (performance.now() > followUntil) {
+        stopFollow();
+        cursors.forEach((c, i) => {
+          const spot = dockSpot(i);
+          settle.set(
+            i,
+            animate(c, { x: [pos[i].x, spot.x], y: [pos[i].y, spot.y] }, { duration: 0.8, ease: EASE, delay: i * 0.05 }),
+          );
+          pos[i] = spot;
+        });
+        return;
+      }
+      following = requestAnimationFrame(followStep);
+    };
+    const startFollow = () => {
+      if (following || !idle()) return;
+      settle.forEach((c) => c.stop());
+      settle.clear();
+      history.length = 0;
+      followUntil = performance.now() + 6000;
+      dock.classList.add(styles.following);
+      following = requestAnimationFrame(followStep);
+    };
+    const onDockOver = (e: MouseEvent) => {
+      if (dockIndex(e.target) >= 0) startle();
+    };
+    const onDockClick = (e: MouseEvent) => {
+      if (dockIndex(e.target) >= 0) startFollow();
+    };
+    dock.addEventListener("mouseover", onDockOver);
+    dock.addEventListener("click", onDockClick);
+    window.addEventListener("mousemove", onMove, { passive: true });
+
     const canvas = trailRef.current;
     const paint = canvas?.getContext("2d");
     const trails = cursors.map(() => [] as { x: number; y: number; t: number }[]);
@@ -1025,6 +1165,10 @@ export default function CursorStage() {
 
     return () => {
       alive = false;
+      stopFollow();
+      dock.removeEventListener("mouseover", onDockOver);
+      dock.removeEventListener("click", onDockClick);
+      window.removeEventListener("mousemove", onMove);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       window.removeEventListener("wheel", onWheel);

@@ -75,6 +75,19 @@
   animation: bob 2.4s ease-in-out infinite;
 }
 
+.dock .cursor {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.following .cursor {
+  pointer-events: none;
+}
+
+.following .bob {
+  animation: none;
+}
+
 @keyframes bob {
   0%,
   100% {
@@ -184,5 +197,25 @@
   margin: 0;
   box-sizing: border-box;
   pointer-events: none;
+  opacity: 0;
+}
+
+.key {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 4px 8px 3px 8px;
+  border-radius: 6px;
+  background-color: rgba(22, 21, 19, 0.92);
+  border: 1px solid rgba(236, 73, 49, 0.7);
+  box-shadow:
+    0 0 10px rgba(236, 73, 49, 0.35),
+    1px 0 0 rgba(0, 240, 255, 0.5);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  color: #f2f1ef;
+  white-space: nowrap;
   opacity: 0;
 }
