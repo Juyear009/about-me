@@ -25,6 +25,15 @@ type Ctx = {
   touched: HTMLElement[];
   disposers: (() => void)[];
 };
+type Tool = "select" | "rect" | "text" | "image" | "paint" | "duplicate";
+const TOOLS: { name: Tool; icon: string }[] = [
+  { name: "select", icon: '<path d="M6 4l12 6.5-5.2 1.6L10.6 17z"/>' },
+  { name: "rect", icon: '<rect x="4" y="5" width="16" height="14" rx="2"/>' },
+  { name: "text", icon: '<path d="M5 7V5h14v2M12 5v14M9 19h6"/>' },
+  { name: "image", icon: '<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M20.5 15.5l-4.5-4.5-8.5 8.5"/>' },
+  { name: "paint", icon: '<path d="M5 11.5l6.5-6.5 7 7-6.5 6.5z"/><path d="M5 11.5h13.5"/><path d="M20 15c0 1.4 1 2.2 1 3.2a1 1 0 0 1-2 0c0-1 1-1.8 1-3.2z"/>' },
+  { name: "duplicate", icon: '<rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/>' },
+];
 type Section = { name: string; roots: HTMLElement[]; els: HTMLElement[] };
 type Running = { section: Section; controls: Controls; ctx: Ctx; snap: number; used: number[] };
 
@@ -369,40 +378,113 @@ export default function CursorStage() {
       return { done: at + 1.45, free: at + 1.2 };
     };
 
+    const OPERATOR = COUNT - 1;
+    const toolbar = (ctx: Ctx, place: "left" | "bottom" = "left") => {
+      const bar = helper(ctx, `${styles.toolbar} ${place === "bottom" ? styles.toolbarRow : ""}`);
+      const buttons = new Map<Tool, HTMLElement>();
+      TOOLS.forEach(({ name, icon }) => {
+        const button = document.createElement("div");
+        button.className = styles.tool;
+        button.innerHTML = `<svg viewBox="0 0 24 24">${icon}</svg>`;
+        bar.appendChild(button);
+        buttons.set(name, button);
+      });
+      const o = origin();
+      const long = TOOLS.length * 38 - 4 + 12;
+      const row = place === "bottom";
+      const x = (row ? window.innerWidth / 2 - long / 2 : 20) - o.x;
+      const y = (row ? window.innerHeight - 46 - 28 : window.innerHeight / 2 - long / 2) - o.y;
+      const away = row ? { x, y: y + 80 } : { x: x - 70, y };
+      add(ctx, bar, { x: [away.x, x], y: [away.y, y], opacity: [0, 1] }, 0.05, 0.45);
+      let active: Tool | null = null;
+      const center = (tool: Tool) => {
+        const k = TOOLS.findIndex((t) => t.name === tool);
+        return row ? { x: x + 6 + k * 38 + 17, y: y + 6 + 17 } : { x: x + 6 + 17, y: y + 6 + k * 38 + 17 };
+      };
+      const pick = (tool: Tool, at: number, rest = true) => {
+        const c = center(tool);
+        move(ctx, OPERATOR, c.x + 3, c.y + 5, at, 0.38);
+        press(ctx, OPERATOR, at + 0.4);
+        if (active && active !== tool)
+          add(ctx, buttons.get(active)!, { backgroundColor: CLEAR, color: "#f2f1ef" }, at + 0.42, 0.12, "linear");
+        add(ctx, buttons.get(tool)!, { backgroundColor: "rgba(236, 73, 49, 1)", color: "#161513" }, at + 0.42, 0.12, "linear");
+        burst(ctx, buttons.get(tool)!, at + 0.42);
+        active = tool;
+        if (rest) move(ctx, OPERATOR, c.x + (row ? 30 : 60), c.y + (row ? -40 : 24), at + 0.6, 0.45);
+        return at + 0.5;
+      };
+      const hide = (at: number) => add(ctx, bar, { x: away.x, y: away.y, opacity: 0 }, at, 0.4);
+      return { pick, hide };
+    };
+
+    const toolOf = (el: HTMLElement): Tool => {
+      const kind = el.dataset.draw;
+      if (kind === "type") return "text";
+      if (kind === "dup") return "duplicate";
+      if (kind === "pop") return "image";
+      const only = el.children.length === 1 ? el.children[0] : null;
+      if (el.tagName === "IMG" || only?.tagName === "IMG") return "image";
+      return "rect";
+    };
+
     const buildGeneric = (ctx: Ctx, els: HTMLElement[]) => {
-      const free = cursors.map(() => 0);
+      const free = cursors.map(() => 0).slice(0, OPERATOR);
       const doneOf = new Map<HTMLElement, number>();
       const firstOf = new Map<string, HTMLElement>();
-      let base = 0.55 - STAGGER;
       els.forEach((el) => {
-        const kind = el.dataset.draw!;
         const group = el.dataset.group;
-        let src: HTMLElement | undefined;
-        if (group) {
-          if (firstOf.has(group)) src = firstOf.get(group);
-          else firstOf.set(group, el);
-        }
-        base += STAGGER;
-        let c = 0;
-        free.forEach((f, k) => {
-          if (f < free[c]) c = k;
-        });
-        let at = Math.max(base, free[c]);
-        if (kind === "dup" && src) at = Math.max(at, doneOf.get(src) ?? 0);
-        doneOf.forEach((t, other) => {
-          if (other !== el && other.contains(el)) at = Math.max(at, t - 0.2);
-        });
-        const r =
-          kind === "type"
-            ? typeAction(ctx, el, c, at)
-            : kind === "pop"
-              ? popAction(ctx, el, c, at)
-              : kind === "dup" && src
-                ? dupAction(ctx, el, src, c, at)
-                : boxAction(ctx, el, c, at, kind === "grow");
-        free[c] = r.free;
-        doneOf.set(el, r.done);
+        if (group && !firstOf.has(group)) firstOf.set(group, el);
       });
+      const nested = (el: HTMLElement) => els.some((other) => other !== el && other.contains(el));
+      const groups: { tool: Tool; items: HTMLElement[] }[] = [];
+      [els.filter((el) => !nested(el)), els.filter(nested)].forEach((list) => {
+        const local = new Map<Tool, { tool: Tool; items: HTMLElement[] }>();
+        list.forEach((el) => {
+          const tool = toolOf(el);
+          if (!local.has(tool)) {
+            const g = { tool, items: [] as HTMLElement[] };
+            local.set(tool, g);
+            groups.push(g);
+          }
+          local.get(tool)!.items.push(el);
+        });
+      });
+
+      const bar = toolbar(ctx);
+      let clickAt = 0.3;
+      groups.forEach((g) => {
+        const ready = bar.pick(g.tool, clickAt);
+        let base = ready - STAGGER;
+        let lastStart = ready;
+        g.items.forEach((el) => {
+          const kind = el.dataset.draw!;
+          const first = el.dataset.group ? firstOf.get(el.dataset.group) : undefined;
+          const src = first && first !== el ? first : undefined;
+          base += STAGGER;
+          let c = 0;
+          free.forEach((f, k) => {
+            if (f < free[c]) c = k;
+          });
+          let at = Math.max(base, free[c]);
+          if (kind === "dup" && src) at = Math.max(at, doneOf.get(src) ?? 0);
+          doneOf.forEach((t, other) => {
+            if (other !== el && other.contains(el)) at = Math.max(at, t - 0.2);
+          });
+          const res =
+            kind === "type"
+              ? typeAction(ctx, el, c, at)
+              : kind === "pop"
+                ? popAction(ctx, el, c, at)
+                : kind === "dup" && src
+                  ? dupAction(ctx, el, src, c, at)
+                  : boxAction(ctx, el, c, at, kind === "grow");
+          free[c] = res.free;
+          doneOf.set(el, res.done);
+          lastStart = Math.max(lastStart, at);
+        });
+        clickAt = Math.max(clickAt + 0.7, lastStart + 0.35);
+      });
+      bar.hide(endOf(ctx.seq) + 0.1);
       markDrawn(els);
     };
 
@@ -421,6 +503,8 @@ export default function CursorStage() {
         t.style.animationPlayState = "paused";
       });
       spans.forEach((el) => hide(ctx, el));
+      const bar = toolbar(ctx, "bottom");
+      bar.pick("paint", 0.05, false);
       const band = boxAction(ctx, root, 0, 0.5, false);
       markDrawn([root]);
 
@@ -456,6 +540,8 @@ export default function CursorStage() {
       hideFrame(ctx, f, t0 + 0.55);
 
       const t1 = t0 + 0.75;
+      bar.pick("rect", t0 - 0.9);
+      bar.pick("select", t1 - 0.45);
       const pad = 6;
       move(ctx, 1, fb.left + fb.width * 0.55, fb.top + fb.height * 0.6, t1 - 0.25, 0.25);
       press(ctx, 1, t1);
@@ -493,6 +579,7 @@ export default function CursorStage() {
       add(ctx, selected, { backgroundColor: CLEAR }, grab + stretch + 0.1, 0.2, "linear");
 
       const k1 = grab + stretch + 0.3;
+      bar.pick("duplicate", k1 - 0.5);
       key(k1, rowBox.right, rowBox.bottom);
       press(ctx, 1, k1 + 0.05);
       row1.forEach(({ b, g }, k) => {
@@ -517,6 +604,7 @@ export default function CursorStage() {
       const pasted = k2 + 0.6;
 
       const t2 = pasted + 0.05;
+      bar.pick("text", t2 - 0.5);
       spans
         .filter((el) => !shown.includes(el))
         .forEach((el) => add(ctx, el, { opacity: [0, 1] }, t2, 0.01, "linear"));
@@ -575,6 +663,7 @@ export default function CursorStage() {
       });
 
       const t3 = typedAll + 0.6;
+      bar.pick("select", t3 - 0.6);
       const rows = tracks.slice(0, 2).map((t, k) => {
         const r = doc(t);
         const y = r.top + r.height / 2;
@@ -601,6 +690,7 @@ export default function CursorStage() {
       );
       ctx.seq.push([go, [0, 1], { at: t3 + 0.44, duration: 0.01, ease: "linear" }]);
       burst(ctx, root, t3 + 0.44);
+      bar.hide(endOf(ctx.seq) + 0.1);
       ctx.touched.push(...tracks);
       ctx.disposers.push(() =>
         tracks.forEach((t) => {
@@ -723,27 +813,27 @@ export default function CursorStage() {
       const h = rp.height;
       profile.style.transformOrigin = "0 0";
       const frameProfile = frame(ctx);
-      move(ctx, 2, rp.left, rp.top, 0.1, 0.6);
-      down(ctx, 2, 0.72);
-      add(ctx, frameProfile, { x: [rp.left, rp.left], y: [rp.top, rp.top], backgroundColor: [TINT, TINT] }, 0.8, 0.01, "linear");
-      showFrame(ctx, frameProfile, 0.8);
-      add(ctx, frameProfile, { width: [0, w * s0], height: [0, h * s0] }, 0.8, 0.55);
-      move(ctx, 2, rp.left + w * s0, rp.top + h * s0, 0.8, 0.55);
-      up(ctx, 2, 1.38);
-      add(ctx, profile, { opacity: [0, 1], scale: [s0, s0] }, 1.4, 0.3, "linear");
-      add(ctx, frameProfile, { backgroundColor: CLEAR }, 1.4, 0.3, "linear");
-      move(ctx, 2, rp.left - 50, rp.top + h * 0.45, 1.5, 0.6);
+      move(ctx, 2, rp.left, rp.top, 0.45, 0.6);
+      down(ctx, 2, 1.07);
+      add(ctx, frameProfile, { x: [rp.left, rp.left], y: [rp.top, rp.top], backgroundColor: [TINT, TINT] }, 1.15, 0.01, "linear");
+      showFrame(ctx, frameProfile, 1.15);
+      add(ctx, frameProfile, { width: [0, w * s0], height: [0, h * s0] }, 1.15, 0.55);
+      move(ctx, 2, rp.left + w * s0, rp.top + h * s0, 1.15, 0.55);
+      up(ctx, 2, 1.73);
+      add(ctx, profile, { opacity: [0, 1], scale: [s0, s0] }, 1.75, 0.3, "linear");
+      add(ctx, frameProfile, { backgroundColor: CLEAR }, 1.75, 0.3, "linear");
+      move(ctx, 2, rp.left - 50, rp.top + h * 0.45, 1.85, 0.6);
 
       move(ctx, 3, rp.right + 60, rp.top + h * 0.85, 0.2, 0.8);
-      move(ctx, 3, rp.left + w * s0, rp.top + h * s0, 1.55, 0.35);
-      down(ctx, 3, 1.92);
-      add(ctx, profile, { scale: 1 }, 1.98, 0.6);
-      add(ctx, frameProfile, { width: w, height: h }, 1.98, 0.6);
-      move(ctx, 3, rp.right, rp.bottom, 1.98, 0.6);
-      up(ctx, 3, 2.62);
-      burst(ctx, profile, 2.62);
-      hideFrame(ctx, frameProfile, 2.85);
-      move(ctx, 3, rp.right + 44, rp.top + 30, 2.75, 0.6);
+      move(ctx, 3, rp.left + w * s0, rp.top + h * s0, 1.9, 0.35);
+      down(ctx, 3, 2.27);
+      add(ctx, profile, { scale: 1 }, 2.33, 0.6);
+      add(ctx, frameProfile, { width: w, height: h }, 2.33, 0.6);
+      move(ctx, 3, rp.right, rp.bottom, 2.33, 0.6);
+      up(ctx, 3, 2.97);
+      burst(ctx, profile, 2.97);
+      hideFrame(ctx, frameProfile, 3.2);
+      move(ctx, 3, rp.right + 44, rp.top + 30, 3.1, 0.6);
 
       if (hintVisible) {
         const hx = (hintText.left + hintText.right) / 2;
@@ -780,9 +870,13 @@ export default function CursorStage() {
       move(ctx, 6, t1.right + 60, t1.top - 40, 0.15, 0.7);
       move(ctx, 6, t1.left + 80, t2.bottom + 40, 1.3, 0.7);
       move(ctx, 6, rp.left - 30, rp.top + 50, 2.3, 0.7);
-      move(ctx, 7, rp.right + 30, rp.bottom - 30, 0.25, 0.75);
-      move(ctx, 7, rp.left + w * 0.5, rp.bottom + 34, 1.25, 0.7);
-      move(ctx, 7, t2.right + 56, t2.top + 20, 2.4, 0.7);
+      const bar = toolbar(ctx);
+      bar.pick("text", 0.05, false);
+      bar.pick("image", 0.5, false);
+      bar.pick("duplicate", 0.95);
+      bar.pick("text", 2.2, false);
+      bar.pick("select", 2.65);
+      bar.hide(endOf(ctx.seq) + 0.1);
     };
 
     const order = (a: HTMLElement, b: HTMLElement) =>
